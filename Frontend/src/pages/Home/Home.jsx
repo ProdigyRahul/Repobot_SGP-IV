@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { Footer } from "../../components/Footer/Footer";
 import { Link } from "react-router-dom";
+import Logo from '../../assets/Logo.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -19,8 +20,9 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <span className="text-[#441752] text-2xl font-bold">Repobot</span>
+            <img src={Logo} alt="Repobot Logo" className="mr-2 w-30 h-10" />
           </div>
+
 
           <div className="hidden md:block">
             <div className="flex items-center space-x-8">
@@ -98,7 +100,7 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-[#A888B5]/10">
       <Navbar />
-    
+
       <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
@@ -125,7 +127,7 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
- 
+
       <div className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-t from-[#A888B5]/10">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -147,7 +149,7 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-   
+
       <div className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <div className="bg-[#441752] rounded-2xl p-8 md:p-12">
