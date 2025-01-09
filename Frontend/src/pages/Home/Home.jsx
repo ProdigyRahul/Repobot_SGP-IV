@@ -98,17 +98,17 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-[#A888B5]/10">
       <Navbar />
-    
       <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-[#441752] mb-6">
-              Transform Your Business with{" "}
+              Transform Your Git Repo with{" "}
               <span className="text-[#A888B5]">AI</span>
             </h1>
             <p className="text-lg text-[#441752]/70 max-w-2xl mx-auto mb-8">
-              Get expert guidance powered by AI agents specializing in Sales,
-              Marketing, and Negotiation. Start your journey today.
+              Get expert guidance powered by RepoBot, specializing in GitHub
+              project analysis, repository management, and code optimization.
+              Start your journey today!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -125,7 +125,6 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
- 
       <div className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-t from-[#A888B5]/10">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -147,7 +146,6 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-   
       <div className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <div className="bg-[#441752] rounded-2xl p-8 md:p-12">
@@ -156,8 +154,8 @@ const LandingPage = () => {
               Ready to Get Started?
             </h2>
             <p className="text-white/80 mb-8 max-w-xl mx-auto">
-              Join thousands of businesses already using our AI-powered platform
-              to grow their success.
+              Join thousands of developers already using RepoBot to streamline
+              GitHub project analysis and elevate their coding success.
             </p>
             <button className="bg-white text-[#441752] px-8 py-3 rounded-lg hover:bg-white/90">
               Start Free Trial
