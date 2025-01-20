@@ -4,6 +4,7 @@ import "./components/Navbar/Navbar";
 import Repobot from "./pages/Repobot Landing/Repobot";
 import Home from "./pages/Home/Home";
 import { AuthModal } from "./components/Footer/Footer";
+import Login from './components/Login'
 
 const App = () => {
   return (
@@ -11,7 +12,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/repobot" element={<Repobot />} />
-        <Route path="/login" element={<AuthModal />} />
+        <Route path="/signup" element={<AuthModal />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );

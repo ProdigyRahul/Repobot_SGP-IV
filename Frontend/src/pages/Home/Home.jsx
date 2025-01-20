@@ -39,10 +39,10 @@ const Navbar = () => {
                 Contact
               </a>
               <Link
-                to="/login"
-                className="bg-[#A888B5] text-white px-6 py-2 rounded-lg hover:bg-[#A888B5]/90"
+                to="/signup"
+                className="bg-[#441752] text-white px-6 py-2 rounded-lg hover:bg-[#A888B5]/90"
               >
-                Login
+                Sign Up
               </Link>
             </div>
           </div>
@@ -75,7 +75,7 @@ const Navbar = () => {
             </a>
             <Link
               to="/repobot"
-              className="w-full text-left px-3 py-2 text-white bg-[#A888B5] rounded-lg"
+              className="w-full text-left px-3 py-2 text-white bg-[#441752] rounded-lg"
             >
               Get Started
             </Link>
@@ -116,7 +116,7 @@ const LandingPage = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/repobot"
-                className="bg-[#A888B5] text-white px-8 py-3 rounded-lg hover:bg-[#A888B5]/90 flex items-center justify-center"
+                className="bg-[#441752] text-white px-8 py-3 rounded-lg hover:bg-[#A888B5]/90 flex items-center justify-center"
               >
                 Get Started
                 <ChevronRight className="w-5 h-5 ml-2" />

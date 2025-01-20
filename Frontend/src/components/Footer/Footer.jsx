@@ -8,6 +8,7 @@ import {
   Linkedin,
   MessageCircle,
 } from "lucide-react";
+import logo from '../../assets/Logo.png'
 
 const AuthModal = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -19,8 +20,16 @@ const AuthModal = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#441752]/5 to-[#A888B5]/10 p-4">
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8">
+
+        <div className="flex justify-center mb-4">
+          <img
+            src={logo}
+            alt="Repobot Logo"
+            className="w-22 h-16"
+          />
+        </div>
         <h2 className="text-2xl font-bold text-[#441752] mb-6 text-center">
-          {isLogin ? "Welcome to RepoBot" : "Create Account"}
+          {isLogin ? "Welcome to RepoBot" : "Sign Up"}
         </h2>
 
         <form className="space-y-4">
@@ -34,7 +43,7 @@ const AuthModal = () => {
                 <input
                   type="text"
                   className="w-full pl-10 pr-4 py-2 border-2 border-[#441752]/10 rounded-lg focus:border-[#A888B5] focus:outline-none"
-                  placeholder="John Doe"
+                  placeholder="Name"
                 />
               </div>
             </div>
@@ -92,14 +101,14 @@ const AuthModal = () => {
                   <input
                     type="tel"
                     className="w-full pl-10 pr-4 py-2 border-2 border-[#441752]/10 rounded-lg focus:border-[#A888B5] focus:outline-none"
-                    placeholder="+1 (555) 123-4567"
+                    placeholder="Contact Number"
                   />
                 </div>
               </div>
             </>
           )}
 
-          <button className="w-full bg-[#A888B5] text-white py-2 rounded-lg hover:bg-[#A888B5]/90 transition-colors">
+          <button className="w-full bg-[#3d2546] text-white py-2 rounded-lg hover:bg-[#A888B5]/90 transition-colors">
             {isLogin ? "Sign In" : "Create Account"}
           </button>
         </form>
