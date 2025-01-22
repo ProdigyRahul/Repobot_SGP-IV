@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 
 // Define a port (default to 5000 if not defined in .env)
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 // MongoDB connection
 const uri = process.env.MONGO_URI; // Make sure to set this in your .env file
