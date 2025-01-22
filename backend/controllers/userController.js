@@ -1,12 +1,15 @@
+const Users = require("../models/Users");
 const User = require("../models/Users");
 // Get all users
-const getAllUsers = async (req, res) => {
+const submitSignup = async (requestAnimationFrame, res) => {
     try {
-        const users = await User.find();
-        res.json(users);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+        const { name, email, password, mobileNo } = req.body;
+        const newEntry = new Users({ name, email, password, mobileNo });
+        await newEntry.save();
+        res.status(200).send({ message: 'Account created successfully' })
     }
-};
-
+    catch (error) {
+        res.status(500).send({ message: 'Error signing up' })
+    }
+}
 module.exports = { getAllUsers };
