@@ -3,13 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./components/Navbar/Navbar";
 import Repobot from "./pages/Repobot Landing/Repobot";
 import Home from "./pages/Home/Home";
-<<<<<<< Updated upstream
-import { AuthModal } from "./components/Footer/Footer";
-import Login from './components/Login'
-=======
+import Footer from "./components/Footer/Footer";
+import { AuthModal } from "/src/components/Footer/Footer.jsx";
 import Auth from "./pages/Auth/Auth";
-
->>>>>>> Stashed changes
 
 const App = () => {
   return (
@@ -17,13 +13,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/repobot" element={<Repobot />} />
-<<<<<<< Updated upstream
-        <Route path="/signup" element={<AuthModal />} />
-        <Route path="/login" element={<Login />} />
-=======
-      
         <Route path="/login" element={<Auth />} />
->>>>>>> Stashed changes
+        <Route path="/signup" element={<Auth />} />
       </Routes>
     </Router>
   );
