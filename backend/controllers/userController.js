@@ -3,8 +3,8 @@ const User = require("../models/Users");
 // Get all users
 const submitSignup = async (requestAnimationFrame, res) => {
     try {
-        const { name, email, password, mobileNo } = req.body;
-        const newEntry = new Users({ name, email, password, mobileNo });
+        const { name, email, password, phone } = req.body;
+        const newEntry = new Users({ name, email, password, phone });
         await newEntry.save();
         res.status(200).send({ message: 'Account created successfully' })
     }
