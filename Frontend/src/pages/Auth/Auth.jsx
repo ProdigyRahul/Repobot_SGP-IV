@@ -1,12 +1,39 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { Mail, Lock, User } from "lucide-react";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phone: "",
+  });
 
   const handleToggle = () => {
     setIsLogin(!isLogin);
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const response = await axios.post('http://localhost:5000/api/auth/signup', userData);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+      if (error.response) {
+        // Handle the error if response is available
+        console.log('Error response:', error.response.data);
+      } else {
+        // Handle other errors (like CORS or network errors)
+        console.log('Network error or CORS issue');
+      }
+    }
+  };
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#441752]/5 to-[#A888B5]/10 p-4">
@@ -15,7 +42,7 @@ const Auth = () => {
           {isLogin ? "Welcome to RepoBot" : "Create Account"}
         </h2>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           {!isLogin && (
             <div>
               <label className="block text-sm font-medium text-[#441752] mb-1">
@@ -25,6 +52,9 @@ const Auth = () => {
                 <User className="absolute left-3 top-3 w-5 h-5 text-[#441752]/40" />
                 <input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   className="w-full pl-10 pr-4 py-2 border-2 border-[#441752]/10 rounded-lg focus:border-[#A888B5] focus:outline-none"
                   placeholder="John Doe"
                 />
@@ -40,6 +70,9 @@ const Auth = () => {
               <Mail className="absolute left-3 top-3 w-5 h-5 text-[#441752]/40" />
               <input
                 type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
                 className="w-full pl-10 pr-4 py-2 border-2 border-[#441752]/10 rounded-lg focus:border-[#A888B5] focus:outline-none"
                 placeholder="you@example.com"
               />
@@ -54,6 +87,9 @@ const Auth = () => {
               <Lock className="absolute left-3 top-3 w-5 h-5 text-[#441752]/40" />
               <input
                 type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
                 className="w-full pl-10 pr-4 py-2 border-2 border-[#441752]/10 rounded-lg focus:border-[#A888B5] focus:outline-none"
                 placeholder="••••••••"
               />
@@ -70,6 +106,9 @@ const Auth = () => {
                   <Lock className="absolute left-3 top-3 w-5 h-5 text-[#441752]/40" />
                   <input
                     type="password"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
                     className="w-full pl-10 pr-4 py-2 border-2 border-[#441752]/10 rounded-lg focus:border-[#A888B5] focus:outline-none"
                     placeholder="••••••••"
                   />
@@ -83,6 +122,9 @@ const Auth = () => {
                 <div className="relative">
                   <input
                     type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
                     className="w-full pl-10 pr-4 py-2 border-2 border-[#441752]/10 rounded-lg focus:border-[#A888B5] focus:outline-none"
                     placeholder="+1 (555) 123-4567"
                   />
