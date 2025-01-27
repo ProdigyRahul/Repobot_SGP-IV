@@ -5,7 +5,9 @@ import Repobot from "./pages/Repobot Landing/Repobot";
 import Home from "./pages/Home/Home";
 import Footer from "./components/Footer/Footer";
 import { AuthModal } from "/src/components/Footer/Footer.jsx";
-import Auth from "./pages/Auth/Auth";
+
+import Signup from "./pages/Auth/Signup";
+import Login from "./pages/Auth/Login";
 
 const App = () => {
   return (
@@ -13,8 +15,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/repobot" element={<Repobot />} />
-        <Route path="/login" element={<Auth />} />
-        <Route path="/signup" element={<Auth />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </Router>
   );
