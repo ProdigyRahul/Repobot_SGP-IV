@@ -3,40 +3,50 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
+const cors = require("cors");
 
 // Load environment variables
 dotenv.config();
 
-// Connect to MongoDB
-connectDB();
-
 // Initialize Express
 const app = express();
 
-// Middleware to parse JSON
+// Middleware
 app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
-// Define a port (default to 5000 if not defined in .env)
-const PORT = process.env.PORT || 5000;
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: "Something went wrong!" });
+});
 
-// MongoDB connection
-const uri = process.env.MONGO_URI; // Make sure to set this in your .env file
-if (!uri) {
-    console.error('MongoDB connection string (MONGO_URI) is not defined in .env');
-    process.exit(1);
-}
-
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('Connected to MongoDB'))
-    .catch((err) => console.error('Failed to connect to MongoDB', err));
-
+// Routes
+app.use("/api/auth", authRoutes); // Mount auth routes under /api/auth
 
 // Define a test route
-app.get('/', (req, res) => {
-    res.send('Backend server is running!');
+app.get("/", (req, res) => {
+  res.json({ message: "Backend server is running!" });
 });
 
-// Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+// Connect to MongoDB
+const startServer = async () => {
+  try {
+    await connectDB();
+
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error);
+    process.exit(1);
+  }
+};
+
+startServer();
