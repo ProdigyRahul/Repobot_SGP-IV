@@ -1,11 +1,12 @@
+
 const express = require("express");
 const User = require("../models/Users");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const sendMail = require("../utils/mailer"); 
 
 const router = express.Router();
 
-// Generate JWT
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
@@ -15,22 +16,20 @@ router.post("/signup", async (req, res) => {
   try {
     const { name, email, password, phone } = req.body;
 
-    // Validation
+
     if (!name || !email || !password) {
       return res.status(400).json({ message: "All fields are required." });
     }
 
-    // Check for existing user
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({ message: "User already exists." });
     }
 
-    // Create user
     const user = await User.create({
       name,
       email,
-      password, // Password will be hashed by the User model pre-save middleware
+      password,
       phone
     });
 
@@ -49,26 +48,31 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-// Login (Change GET to POST)
+// Login (POST)
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Validation
     if (!email || !password) {
       return res.status(400).json({ message: "Email and password are required." });
     }
 
-    // Find user and check password
     const user = await User.findOne({ email });
 
     if (user && (await user.matchPassword(password))) {
+ 
+      const token = generateToken(user._id);
+
+      const subject = "Login Successful!";
+      const text = `Hello ${user.name},\n\nYou have successfully logged into your account.\nIf this wasn't you, please contact support immediately.`;
+      await sendMail(user.email, subject, text); 
+
       res.status(200).json({
         id: user._id,
         name: user.name,
         email: user.email,
-        token: generateToken(user._id),
-        message: "Login successful"
+        token,
+        message: "Login successful",
       });
     } else {
       res.status(401).json({ message: "Invalid email or password." });
@@ -78,6 +82,5 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ message: "Server error during login." });
   }
 });
-
 
 module.exports = router;

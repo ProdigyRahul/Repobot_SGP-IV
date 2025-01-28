@@ -1,6 +1,6 @@
 const Users = require("../models/Users");
 const User = require("../models/Users");
-// Get all users
+
 const submitSignup = async (requestAnimationFrame, res) => {
     try {
         const { name, email, password, phone } = req.body;

@@ -5,10 +5,8 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const cors = require("cors");
 
-// Load environment variables
 dotenv.config();
 
-// Initialize Express
 const app = express();
 
 // Middleware
@@ -20,21 +18,18 @@ app.use(
   })
 );
 
-// Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: "Something went wrong!" });
 });
 
 // Routes
-app.use("/api/auth", authRoutes); // Mount auth routes under /api/auth
+app.use("/api/auth", authRoutes); 
 
-// Define a test route
 app.get("/", (req, res) => {
   res.json({ message: "Backend server is running!" });
 });
 
-// Connect to MongoDB
 const startServer = async () => {
   try {
     await connectDB();
