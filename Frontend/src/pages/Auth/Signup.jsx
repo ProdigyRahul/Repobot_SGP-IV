@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Mail, Lock, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import logo from '../../assets/logo.png'
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -91,6 +92,13 @@ const Signup = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#441752]/5 to-[#A888B5]/10 p-4">
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8">
+        <div className="flex justify-center mb-4">
+          <img
+            src={logo}
+            alt="Repobot Logo"
+            className="w-32 h-16"
+          />
+        </div>
         <h2 className="text-2xl font-bold text-[#441752] mb-6 text-center">Create Account</h2>
 
         {error && (
@@ -182,9 +190,8 @@ const Signup = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full bg-[#A888B5] text-white py-2 rounded-lg transition-colors ${
-              isLoading ? "opacity-70 cursor-not-allowed" : "hover:bg-[#A888B5]/90"
-            }`}
+            className={`w-full bg-[#441752] text-white py-2 rounded-lg transition-colors ${isLoading ? "opacity-70 cursor-not-allowed" : "hover:bg-[#A888B5]/90"
+              }`}
           >
             {isLoading ? "Loading..." : "Create Account"}
           </button>

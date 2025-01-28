@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Mail, Lock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import logo from '../../assets/logo.png'
 
 const Login = () => {
   const navigate = useNavigate();
@@ -36,13 +37,13 @@ const Login = () => {
     setError("");
     setSuccess("");
     setIsLoading(true);
-  
+
     try {
       if (!validateForm()) {
         setIsLoading(false);
         return;
       }
-  
+
       const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST", // Ensure POST method
         headers: {
@@ -51,17 +52,17 @@ const Login = () => {
         credentials: "include", // Keep this if you want to include cookies (e.g., session ID)
         body: JSON.stringify(formData), // Send the body with login credentials
       });
-  
+
       const contentType = response.headers.get("content-type");
       if (!contentType || !contentType.includes("application/json")) {
         throw new Error("Server returned non-JSON response");
       }
-  
+
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message || "Something went wrong");
       }
-  
+
       setSuccess("Login successful!");
       if (data.token) {
         localStorage.setItem("token", data.token);
@@ -74,12 +75,19 @@ const Login = () => {
       setIsLoading(false);
     }
   };
-  
-  
+
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#441752]/5 to-[#A888B5]/10 p-4">
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8">
+        <div className="flex justify-center mb-4">
+          <img
+            src={logo}
+            alt="Repobot Logo"
+            className="w-32 h-16"
+          />
+        </div>
         <h2 className="text-2xl font-bold text-[#441752] mb-6 text-center">Welcome Back</h2>
 
         {error && (
@@ -125,9 +133,8 @@ const Login = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full bg-[#A888B5] text-white py-2 rounded-lg transition-colors ${
-              isLoading ? "opacity-70 cursor-not-allowed" : "hover:bg-[#A888B5]/90"
-            }`}
+            className={`w-full bg-[#441752] text-white py-2 rounded-lg transition-colors ${isLoading ? "opacity-70 cursor-not-allowed" : "hover:bg-[#A888B5]/90"
+              }`}
           >
             {isLoading ? "Loading..." : "Sign In"}
           </button>
