@@ -62,7 +62,7 @@ const Login = () => {
       if (!response.ok) {
         throw new Error(data.message || "Something went wrong");
       }
-
+  
       setSuccess("Login successful!");
       if (data.token) {
         localStorage.setItem("token", data.token);
@@ -75,8 +75,8 @@ const Login = () => {
       setIsLoading(false);
     }
   };
-
-
+  
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#441752]/5 to-[#A888B5]/10 p-4">

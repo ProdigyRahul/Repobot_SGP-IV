@@ -1,0 +1,11 @@
+ # Python dependencies for the NLP component
+
+flask
+fastapi
+uvicorn
+spacy
+transformers
+torch
+scikit-learn
+github
+python-dotenv

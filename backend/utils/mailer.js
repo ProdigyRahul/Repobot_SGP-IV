@@ -12,7 +12,7 @@ const sendMail = async (to, subject, text) => {
 
   const mailOptions = {
     from: process.env.EMAIL_USER, 
-    to: "priyansi0320005@gmail.com", 
+    to: "priyansiborda8.8@gmail.com", 
     subject: "Repobot Login Successful", 
     text: "Welcome to Repobot! You have successfully logged in. Enjoy using the bot and feel free to explore its features.", // The content of the email
   };
