@@ -4,25 +4,26 @@ const mongoose = require("mongoose");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const cors = require("cors");
-
+const { OpenAI } = require("openai");
 
 dotenv.config();
 
 const app = express();
-
-// Middleware
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
-// Dynamically Import Octokit for GitHub API
+
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+
 let Octokit;
 (async () => {
   const { Octokit: OctokitModule } = await import("@octokit/rest");
   Octokit = OctokitModule;
 })();
 
-// GitHub API Route - Fetch Repository Contents
-app.get("/api/github/repos", async (req, res) => {
+
+app.get("/api/github/summary", async (req, res) => {
   if (!Octokit) {
     return res.status(500).json({ error: "GitHub API is not initialized yet. Try again later." });
   }
@@ -35,22 +36,35 @@ app.get("/api/github/repos", async (req, res) => {
   try {
     const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
+
     const response = await octokit.repos.getContent({ owner, repo, path: "" });
 
-    const files = response.data.map((file) => ({
-      name: file.name,
-      path: file.path,
-      type: file.type,
-      download_url: file.download_url,
-    }));
+    const files = response.data.map((file) => file.name).join(", ");
 
-    res.json({ repository: `${owner}/${repo}`, files });
+
+    const prompt = `
+    Given the following repository: **${owner}/${repo}**, analyze the files and provide a summary of what has already been implemented and what might be missing. 
+
+    The repository contains these files: **${files}**.
+
+    Generate a summary in the following format:
+    - ✅ **Completed Work**
+    - 🚀 **Pending Work**
+    - 🛠 **Suggested Next Steps**
+    `;
+
+    const chatResponse = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "system", content: prompt }],
+      max_tokens: 300,
+    });
+
+    res.json({ summary: chatResponse.choices[0].message.content });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// Start the server
 const startServer = async () => {
   try {
     await connectDB();
