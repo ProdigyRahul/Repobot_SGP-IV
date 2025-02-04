@@ -1,0 +1,28 @@
+import React from "react";
+import { MessageSquare, ChevronRight } from "lucide-react";
+
+const RecentChats = () => {
+  const recentChats = [
+    "How can I increase ton...",
+    "What's the best appro...",
+    "What's the best sport...",
+  ];
+
+  return (
+    <div className="mb-6">
+      <div className="px-2 mb-3 text-sm font-medium text-gray-400">Recent Chats</div>
+      {recentChats.map((chat, index) => (
+        <div
+          key={index}
+          className="flex items-center p-2 text-gray-300 rounded-lg cursor-pointer hover:bg-[#441752]/20"
+        >
+          <MessageSquare className="w-4 h-4 mr-3" />
+          <span className="truncate">{chat}</span>
+          <ChevronRight className="ml-auto w-4 h-4" />
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default RecentChats;
