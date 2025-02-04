@@ -1,6 +1,5 @@
 require("dotenv").config();
 const nodemailer = require("nodemailer");
-
 const sendMail = async (to, subject, text) => {
   const transporter = nodemailer.createTransport({
     service: "Gmail",
@@ -12,7 +11,7 @@ const sendMail = async (to, subject, text) => {
 
   const mailOptions = {
     from: process.env.EMAIL_USER, 
-    to: "priyansiborda8.8@gmail.com", 
+    to: "priyansi0320005@gmail.com", 
     subject: "Repobot Login Successful", 
     text: "Welcome to Repobot! You have successfully logged in. Enjoy using the bot and feel free to explore its features.", // The content of the email
   };
