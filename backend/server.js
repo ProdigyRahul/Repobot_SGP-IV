@@ -3,9 +3,8 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
+const githubRoutes = require("./routes/githubRoutes");
 const cors = require("cors");
-
-
 
 dotenv.config();
 
@@ -25,29 +24,26 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: "Something went wrong!" });
 });
 
-
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/github", githubRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "Backend server is running!" });
 });
 
+
 const startServer = async () => {
   try {
     await connectDB();
-
     const PORT = process.env.PORT || 5000;
     app.listen(PORT, () => {
-      console.log('Server is running on port ${PORT}');
+      console.log(`Server is running on port ${PORT}`);
     });
   } catch (error) {
     console.error("Failed to start server:", error);
     process.exit(1);
   }
 };
-
-
-
 
 startServer();

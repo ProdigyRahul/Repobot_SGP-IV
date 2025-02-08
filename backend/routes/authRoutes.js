@@ -46,7 +46,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-// Login (POST)
+// Login 
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -78,7 +78,7 @@ router.post("/login", async (req, res) => {
     const token = generateToken(user._id);
     console.log("Generated token:", token);
 
-    // Send the response immediately after generating the token
+    
     res.status(200).json({
       id: user._id,
       name: user.name,
@@ -87,7 +87,7 @@ router.post("/login", async (req, res) => {
       message: "Login successful",
     });
 
-    // Send email separately without blocking response
+    
     const subject = "Login Successful!";
     const text = `Hello ${user.name},\n\nYou have successfully logged into your account.\nIf this wasn't you, please contact support immediately.`;
 
