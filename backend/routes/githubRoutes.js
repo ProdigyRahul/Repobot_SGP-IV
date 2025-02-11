@@ -21,7 +21,7 @@ router.get("/repos", async (req, res) => {
   try {
     const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
-    // Fetch repository contents
+
     const response = await octokit.repos.getContent({ owner, repo, path: "" });
 
     const files = response.data.map((file) => ({

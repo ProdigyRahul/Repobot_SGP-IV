@@ -31,7 +31,7 @@ const Navbar = () => {
               <a href="#" className="text-[#441752]/70 hover:text-[#441752]">
                 Features
               </a>
-              <a href="#" className="text-[#441752]/70 hover:text-[#441752]">
+              <a href="/about" className="text-[#441752]/70 hover:text-[#441752]">
                 About
               </a>
               <a href="#" className="text-[#441752]/70 hover:text-[#441752]">
@@ -56,7 +56,7 @@ const Navbar = () => {
         </div>
       </div>
 
-     
+
       {isOpen && (
         <div className="md:hidden bg-white border-t">
           <div className="px-2 pt-2 pb-3 space-y-1">

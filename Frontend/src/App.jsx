@@ -8,6 +8,7 @@ import { AuthModal } from "/src/components/Footer/Footer.jsx";
 
 import Signup from "./pages/Auth/Signup";
 import Login from "./pages/Auth/Login";
+import About from "./pages/Home/About";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/repobot" element={<Repobot />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="about" element={<About />} />
       </Routes>
     </Router>
   );
