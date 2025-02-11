@@ -9,6 +9,7 @@ import { AuthModal } from "/src/components/Footer/Footer.jsx";
 import Signup from "./pages/Auth/Signup";
 import Login from "./pages/Auth/Login";
 import About from "./pages/Home/About";
+import Contact from './pages/Home/Contact';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="about" element={<About />} />
+        <Route path="contact" element={<Contact />} />
       </Routes>
     </Router>
   );

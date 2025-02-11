@@ -34,7 +34,7 @@ const Navbar = () => {
               <a href="/about" className="text-[#441752]/70 hover:text-[#441752]">
                 About
               </a>
-              <a href="#" className="text-[#441752]/70 hover:text-[#441752]">
+              <a href="/contact" className="text-[#441752]/70 hover:text-[#441752]">
                 Contact
               </a>
               <Link
