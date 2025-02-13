@@ -12,21 +12,22 @@ const MainContent = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {[
             {
-              title: "Sales Strategies",
-              desc: "Get expert advice on ensuring goals",
+              "title": "Repository Insights",
+              "desc": "Analyze and understand repository trends and usage."
             },
             {
-              title: "Negotiation Tactics",
-              desc: "Learn expert negotiable tips to close deals",
+              "title": "Collaboration Strategies",
+              "desc": "Learn best practices for managing contributions and team workflows."
             },
             {
-              title: "Marketing Insights",
-              desc: "Discover the best marketing strategies",
+              "title": "Code Quality & Reviews",
+              "desc": "Get tips on maintaining high code quality and effective code reviews."
             },
             {
-              title: "General Support",
-              desc: "Need help with general queries",
-            },
+              "title": "General Repository Support",
+              "desc": "Need help with repository setup, management, or troubleshooting?"
+            }
+            
           ].map((item) => (
             <div
               key={item.title}

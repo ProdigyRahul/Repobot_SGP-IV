@@ -6,12 +6,12 @@ const Navbar = () => {
   return (
     <nav className="bg-customBlue text-white shadow-lg">
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
-        {/* Logo */}
+      
         <div className="text-2xl font-bold font-sans">
           <a href="/" className="hover:text-gray-200">MyApp</a>
         </div>
 
-        {/* Menu Button (Mobile) */}
+    
         <div className="md:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -43,7 +43,7 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Navigation Links */}
+       
         <div
           className={`md:flex items-center space-x-6 ${isOpen ? 'block' : 'hidden'}`}
         >
