@@ -25,10 +25,13 @@ const Navbar = () => {
 
           <div className="hidden md:block">
             <div className="flex items-center space-x-8">
-              <a href="#" className="text-[#441752] font-medium">
+              <a href="/" className="text-[#441752] font-medium">
                 Home
               </a>
-              <a href="#" className="text-[#441752]/70 hover:text-[#441752]">
+              <a
+                href="/features"
+                className="text-[#441752]/70 hover:text-[#441752]"
+              >
                 Features
               </a>
               <a

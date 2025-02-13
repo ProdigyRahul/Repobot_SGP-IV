@@ -9,20 +9,22 @@ import { AuthModal } from "/src/components/Footer/Footer.jsx";
 import Signup from "./pages/Auth/Signup";
 import Login from "./pages/Auth/Login";
 import About from "./pages/Home/About";
-import Contact from './pages/Home/Contact';
-import FAQs from './pages/Home/FAQs/FAQs';
+import Contact from "./pages/Home/Contact";
+import FAQs from "./pages/Home/FAQs/FAQs";
+import Feature from "./pages/Home/Feature";
 
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/repobot" element={<Repobot/>} />
+        <Route path="/repobot" element={<Repobot />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="about" element={<About />} />
-        <Route path="contact" element={<Contact />} />
-        <Route path="faqs" element={<FAQs />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/faqs" element={<FAQs />} />
+        <Route path="/features" element={<Feature />} />
       </Routes>
     </Router>
   );
