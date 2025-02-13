@@ -56,10 +56,7 @@ const Navbar = () => {
         </div>
       </div>
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
+     
       {isOpen && (
         <div className="md:hidden bg-white border-t">
           <div className="px-2 pt-2 pb-3 space-y-1">
