@@ -48,25 +48,25 @@ const Navbar = () => {
           className={`md:flex items-center space-x-6 ${isOpen ? 'block' : 'hidden'}`}
         >
           <a
-            href="#"
+            href="/"
             className="block mt-2 md:mt-0 text-lg font-sans hover:text-gray-200"
           >
             Home
           </a>
           <a
-            href="#about"
+            href="/about"
             className="block mt-2 md:mt-0 text-lg font-sans hover:text-gray-200"
           >
             About
           </a>
           <a
-            href="#services"
+            href="/services"
             className="block mt-2 md:mt-0 text-lg font-sans hover:text-gray-200"
           >
             Services
           </a>
           <a
-            href="#contact"
+            href="/contact"
             className="block mt-2 md:mt-0 text-lg font-sans hover:text-gray-200"
           >
             Contact

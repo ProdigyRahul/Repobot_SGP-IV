@@ -7,6 +7,8 @@ import {
   ChevronRight,
   Menu,
   X,
+  Moon,
+  Sun,
 } from "lucide-react";
 import Footer from "../../components/Footer/Footer";
 import { Link } from "react-router-dom";
@@ -14,9 +16,18 @@ import Logo from "../../assets/Logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [darkMode, setDarkMode] = React.useState(false);
+
+  React.useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
 
   return (
-    <nav className="fixed w-full bg-white/95 backdrop-blur-sm z-50 shadow-sm">
+    <nav className="fixed w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
@@ -25,30 +36,31 @@ const Navbar = () => {
 
           <div className="hidden md:block">
             <div className="flex items-center space-x-8">
-              <a href="/" className="text-[#441752] font-medium">
+              <a href="/" className="text-[#441752] dark:text-white font-medium">
                 Home
               </a>
-              <a
-                href="/features"
-                className="text-[#441752]/70 hover:text-[#441752]"
-              >
+              <a href="/features" className="text-[#441752]/70 dark:text-white/70 hover:text-[#441752] dark:hover:text-white">
                 Features
               </a>
-              <a
-                href="/about"
-                className="text-[#441752]/70 hover:text-[#441752]"
-              >
+              <a href="/about" className="text-[#441752]/70 dark:text-white/70 hover:text-[#441752] dark:hover:text-white">
                 About
               </a>
-              <a
-                href="/contact"
-                className="text-[#441752]/70 hover:text-[#441752]"
-              >
+              <a href="/contact" className="text-[#441752]/70 dark:text-white/70 hover:text-[#441752] dark:hover:text-white">
                 Contact
               </a>
+              <button
+                onClick={() => setDarkMode(!darkMode)}
+                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+              >
+                {darkMode ? (
+                  <Sun className="w-5 h-5 text-[#441752] dark:text-white" />
+                ) : (
+                  <Moon className="w-5 h-5 text-[#441752] dark:text-white" />
+                )}
+              </button>
               <Link
                 to="/signup"
-                className="bg-[#441752] text-white px-6 py-2 rounded-lg hover:bg-[#A888B5]/90"
+                className="bg-[#441752] text-white px-6 py-2 rounded-lg hover:bg-[#A888B5]/90 dark:bg-[#A888B5] dark:hover:bg-[#441752]"
               >
                 Sign Up
               </Link>
@@ -57,32 +69,38 @@ const Navbar = () => {
 
           <button onClick={() => setIsOpen(!isOpen)} className="md:hidden">
             {isOpen ? (
-              <X className="w-6 h-6 text-[#441752]" />
+              <X className="w-6 h-6 text-[#441752] dark:text-white" />
             ) : (
-              <Menu className="w-6 h-6 text-[#441752]" />
+              <Menu className="w-6 h-6 text-[#441752] dark:text-white" />
             )}
           </button>
         </div>
       </div>
 
       {isOpen && (
-        <div className="md:hidden bg-white border-t">
+        <div className="md:hidden bg-white dark:bg-gray-900 border-t dark:border-gray-800">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <a href="/" className="block px-3 py-2 text-[#441752] font-medium">
+            <a href="/" className="block px-3 py-2 text-[#441752] dark:text-white font-medium">
               Home
             </a>
-            <a href="/features" className="block px-3 py-2 text-[#441752]/70">
+            <a href="/features" className="block px-3 py-2 text-[#441752]/70 dark:text-white/70">
               Features
             </a>
-            <a href="/about" className="block px-3 py-2 text-[#441752]/70">
+            <a href="/about" className="block px-3 py-2 text-[#441752]/70 dark:text-white/70">
               About
             </a>
-            <a href="/contact" className="block px-3 py-2 text-[#441752]/70">
+            <a href="/contact" className="block px-3 py-2 text-[#441752]/70 dark:text-white/70">
               Contact
             </a>
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className="w-full text-left px-3 py-2 text-[#441752] dark:text-white"
+            >
+              {darkMode ? 'Light Mode' : 'Dark Mode'}
+            </button>
             <Link
               to="/repobot"
-              className="w-full text-left px-3 py-2 text-white bg-[#441752] rounded-lg"
+              className="w-full text-left px-3 py-2 text-white bg-[#441752] dark:bg-[#A888B5] rounded-lg"
             >
               Get Started
             </Link>
@@ -94,27 +112,27 @@ const Navbar = () => {
 };
 
 const Feature = ({ icon: Icon, title, description }) => (
-  <div className="p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-    <div className="w-12 h-12 bg-[#441752]/10 rounded-lg flex items-center justify-center mb-4">
-      <Icon className="w-6 h-6 text-[#441752]" />
+  <div className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+    <div className="w-12 h-12 bg-[#441752]/10 dark:bg-[#A888B5]/20 rounded-lg flex items-center justify-center mb-4">
+      <Icon className="w-6 h-6 text-[#441752] dark:text-[#A888B5]" />
     </div>
-    <h3 className="text-xl font-semibold text-[#441752] mb-2">{title}</h3>
-    <p className="text-[#441752]/70">{description}</p>
+    <h3 className="text-xl font-semibold text-[#441752] dark:text-white mb-2">{title}</h3>
+    <p className="text-[#441752]/70 dark:text-white/70">{description}</p>
   </div>
 );
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-[#A888B5]/10">
+    <div className="min-h-screen bg-gradient-to-br from-white to-[#A888B5]/10 dark:from-gray-900 dark:to-gray-800">
       <Navbar />
       <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-[#441752] mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold text-[#441752] dark:text-white mb-6">
               Transform Your Git Repo with{" "}
               <span className="text-[#A888B5]">AI</span>
             </h1>
-            <p className="text-lg text-[#441752]/70 max-w-2xl mx-auto mb-8">
+            <p className="text-lg text-[#441752]/70 dark:text-white/70 max-w-2xl mx-auto mb-8">
               Get expert guidance powered by RepoBot, specializing in GitHub
               project analysis, repository management, and code optimization.
               Start your journey today!
@@ -122,19 +140,19 @@ const LandingPage = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/repobot"
-                className="bg-[#441752] text-white px-8 py-3 rounded-lg hover:bg-[#A888B5]/90 flex items-center justify-center"
+                className="bg-[#441752] dark:bg-[#A888B5] text-white px-8 py-3 rounded-lg hover:bg-[#A888B5]/90 dark:hover:bg-[#441752] flex items-center justify-center"
               >
                 Get Started
                 <ChevronRight className="w-5 h-5 ml-2" />
               </Link>
-              <button className="border-2 border-[#441752] text-[#441752] px-8 py-3 rounded-lg hover:bg-[#441752]/5">
+              <button className="border-2 border-[#441752] dark:border-[#A888B5] text-[#441752] dark:text-white px-8 py-3 rounded-lg hover:bg-[#441752]/5 dark:hover:bg-[#A888B5]/20">
                 Learn More
               </button>
             </div>
           </div>
         </div>
       </div>
-      <div className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-t from-[#A888B5]/10">
+      <div className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-t from-[#A888B5]/10 dark:from-gray-800">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Feature
@@ -157,7 +175,7 @@ const LandingPage = () => {
       </div>
       <div className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="bg-[#441752] rounded-2xl p-8 md:p-12">
+          <div className="bg-[#441752] dark:bg-[#A888B5] rounded-2xl p-8 md:p-12">
             <Users className="w-12 h-12 text-white mx-auto mb-6" />
             <h2 className="text-3xl font-bold text-white mb-4">
               Ready to Get Started?
@@ -166,12 +184,12 @@ const LandingPage = () => {
               Join thousands of developers already using RepoBot to streamline
               GitHub project analysis and elevate their coding success.
             </p>
-            <button className="bg-white text-[#441752] px-8 py-3 rounded-lg hover:bg-white/90">
+            <button className="bg-white text-[#441752] dark:text-[#A888B5] px-8 py-3 rounded-lg hover:bg-white/90">
               Start Free Trial
             </button>
           </div>
         </div>
-      </div>{" "}
+      </div>
       <Footer />
     </div>
   );
