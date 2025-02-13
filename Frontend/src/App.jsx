@@ -10,6 +10,7 @@ import Signup from "./pages/Auth/Signup";
 import Login from "./pages/Auth/Login";
 import About from "./pages/Home/About";
 import Contact from './pages/Home/Contact';
+import FAQs from './pages/Home/FAQs/FAQs';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="faqs" element={<FAQs />} />
       </Routes>
     </Router>
   );

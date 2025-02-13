@@ -1,12 +1,10 @@
 import React from 'react';
-
-// import { Footer } from '../../components/Footer/Footer';
 import logo from '../../assets/logo.png'
 
 const ContactPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission logic here
+       
     };
 
     return (
@@ -27,7 +25,7 @@ const ContactPage = () => {
             </nav>
 
             <div className="max-w-7xl mx-auto px-4 py-16">
-                {/* Hero section */}
+               
                 <div className="text-center mb-16">
                     <h1 className="text-5xl font-bold text-[#441752] mb-6">
                         Get in Touch
@@ -39,7 +37,7 @@ const ContactPage = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-                    {/* Contact Form */}
+                
                     <div className="bg-white p-8 rounded-lg shadow-md">
                         <h2 className="text-2xl font-bold text-[#441752] mb-6">Send us a Message</h2>
                         <form onSubmit={handleSubmit}>
@@ -96,7 +94,7 @@ const ContactPage = () => {
                         </form>
                     </div>
 
-                    {/* Contact Information */}
+                
                     <div className="space-y-8">
                         <div className="bg-white p-8 rounded-lg shadow-md">
                             <h2 className="text-2xl font-bold text-[#441752] mb-6">Contact Information</h2>
@@ -113,7 +111,7 @@ const ContactPage = () => {
                                     <h3 className="font-semibold text-[#441752]">Address</h3>
                                     <p className="text-gray-600">
                                         123 Tech Street<br />
-                                        Rajkot, Gujarat<br />
+                                        Anand, Gujarat<br />
                                         India
                                     </p>
                                 </div>
@@ -136,19 +134,21 @@ const ContactPage = () => {
                     </div>
                 </div>
 
-                {/* FAQ Section */}
+                
                 <div className="text-center bg-white p-8 rounded-lg shadow-md">
                     <h2 className="text-3xl font-bold text-[#441752] mb-4">Frequently Asked Questions</h2>
                     <p className="text-gray-600 mb-6">
                         Check out our <a href="/faq" className="text-[#441752] hover:underline">FAQ page</a> for quick answers to common questions.
                     </p>
+                    <a href="/faqs">
                     <button className="bg-[#441752] text-white px-6 py-3 rounded-md hover:bg-purple-800">
                         View FAQs
                     </button>
+                    </a>
                 </div>
             </div>
 
-            {/* <Footer /> */}
+     
         </div>
     );
 };

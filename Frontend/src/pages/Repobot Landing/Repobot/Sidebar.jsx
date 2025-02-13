@@ -42,7 +42,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 const Categories = () => (
   <div className="mb-6">
     <div className="px-2 mb-3 text-sm font-medium text-gray-400">Category</div>
-    {["General", "Sales", "Negotiation", "Marketing"].map((item) => (
+    {[
+      "Issue & Pull Request",
+      "Code & Security Analysis",
+      "AI-Powered Suggestions & Automation",
+      "Collaboration & Community Engagement",
+    ].map((item) => (
       <div
         key={item}
         className="flex items-center p-2 text-gray-300 rounded-lg cursor-pointer hover:bg-[#441752]/20"

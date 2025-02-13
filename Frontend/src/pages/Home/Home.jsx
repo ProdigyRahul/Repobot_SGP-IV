@@ -25,16 +25,22 @@ const Navbar = () => {
 
           <div className="hidden md:block">
             <div className="flex items-center space-x-8">
-              <a href="/" className="text-[#441752] font-medium">
+              <a href="#" className="text-[#441752] font-medium">
                 Home
               </a>
               <a href="#" className="text-[#441752]/70 hover:text-[#441752]">
                 Features
               </a>
-              <a href="/about" className="text-[#441752]/70 hover:text-[#441752]">
+              <a
+                href="/about"
+                className="text-[#441752]/70 hover:text-[#441752]"
+              >
                 About
               </a>
-              <a href="/contact" className="text-[#441752]/70 hover:text-[#441752]">
+              <a
+                href="/contact"
+                className="text-[#441752]/70 hover:text-[#441752]"
+              >
                 Contact
               </a>
               <Link
@@ -56,20 +62,19 @@ const Navbar = () => {
         </div>
       </div>
 
-     
       {isOpen && (
         <div className="md:hidden bg-white border-t">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <a href="#" className="block px-3 py-2 text-[#441752] font-medium">
+            <a href="/" className="block px-3 py-2 text-[#441752] font-medium">
               Home
             </a>
-            <a href="#" className="block px-3 py-2 text-[#441752]/70">
+            <a href="/features" className="block px-3 py-2 text-[#441752]/70">
               Features
             </a>
-            <a href="#" className="block px-3 py-2 text-[#441752]/70">
+            <a href="/about" className="block px-3 py-2 text-[#441752]/70">
               About
             </a>
-            <a href="#" className="block px-3 py-2 text-[#441752]/70">
+            <a href="/contact" className="block px-3 py-2 text-[#441752]/70">
               Contact
             </a>
             <Link
