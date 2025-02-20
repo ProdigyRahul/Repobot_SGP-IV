@@ -41,7 +41,9 @@ npm run dev
 ```
 
 ## 📸 Screenshots
-![Chatbot Demo](https://via.placeholder.com/800x400?text=Chatbot+Demo)
+![Chatbot Demo](![image](https://github.com/user-attachments/assets/f395a05d-a130-452c-976f-377ec1bff2e6)
+) 
+
 ![Dashboard](https://via.placeholder.com/800x400?text=Dashboard)
 
 ## 👥 Contributors
@@ -53,9 +55,6 @@ npm run dev
 - ✅ Voice command support
 - ✅ AI-based repo suggestions
 - ✅ Integration with more platforms
-
-## 📄 License
-This project is **open-source** under the MIT License.
 
 ---
 💡 *Made with ❤️ by Team RepoBot*
