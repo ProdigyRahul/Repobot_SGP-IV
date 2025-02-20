@@ -8,15 +8,12 @@ RepoBot is an **NLP-powered chatbot** designed to make **GitHub repository manag
 ## ✨ Features
 - 🗣 **NLP-based Chatbot** – Manage repositories using natural language.
 - 🔐 **Secure Authentication** – Login & access repos securely.
-- 📂 **Repository Management** – Fetch, create, update, and delete repositories.
-- 🏷 **Issue Tracking** – View, create, and close issues effortlessly.
-- 🔀 **Branch & PR Management** – Check branches, merge PRs, etc.
-- 📊 **Analytics Dashboard** – Visual insights into repo activity.
+- 📂 **Repository Management** – summary of github task 
 
 ## 🛠 Tech Stack
 - **Frontend:** React.js, Tailwind CSS
 - **Backend:** Node.js, Express.js
-- **Database:** MongoDB / PostgreSQL
+- **Database:** MongoDB
 - **NLP:** Python, NLP Libraries
 - **Authentication:** JWT / OAuth
 
