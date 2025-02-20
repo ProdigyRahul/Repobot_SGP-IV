@@ -38,10 +38,7 @@ npm run dev
 ```
 
 ## 📸 Screenshots
-![Chatbot Demo](![image](https://github.com/user-attachments/assets/f395a05d-a130-452c-976f-377ec1bff2e6)
-) 
-
-![Dashboard](https://via.placeholder.com/800x400?text=Dashboard)
+![Chatbot Demo](Frontend/src/assets/Screenshot (119).png)
 
 ## 👥 Contributors
 - **Priyansi** - Full Stack & Chatbot Developer
