@@ -42,8 +42,8 @@ npm run dev
 ![Chatbot Demo](Frontend/src/assets/Screenshot%20(119).png)
 
 ## 👥 Contributors
-- **Priyansi** - Full Stack & Chatbot Developer
-- **Melita** - NLP & Backend Developer
+- **Priyansi** - Full stack & ML developer
+- **Melita** - Full stack & ML developer
 - **Hasti** - Frontend & Security Developer
 
 ## 🚀 Future Enhancements
