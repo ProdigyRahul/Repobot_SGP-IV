@@ -1,7 +1,7 @@
 # 🚀 RepoBot - GitHub Repository Manager
 
 ## 🤖 About RepoBot
-RepoBot is an **NLP-powered chatbot** designed to make **GitHub repository management seamless**. It allows users to interact with their repositories through **natural language commands**, making it easier to fetch repo details, manage branches, track issues, and more.
+RepoBot is an **NLP-based chatbot** designed to make **GitHub repository management**. It allows users to interact with their repositories through **natural language commands**, making it easier to fetch repo details, manage branches, track issues, and more.
 
 ## ✨ Features
 - 🗣 **NLP-based Chatbot** – Manage repositories using natural language.
