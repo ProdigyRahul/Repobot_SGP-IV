@@ -20,7 +20,7 @@ RepoBot is an **NLP-powered chatbot** designed to make **GitHub repository manag
 ```bash
 # Clone the repository
 git clone https://github.com/priyansi032005/Repobot_SGP-IV.git
-cd RepoBot
+cd Repobot_SGP-IV
 
 # Install dependencies
 npm install   # For backend
@@ -29,14 +29,16 @@ npm install   # For backend
 ### ⚡ Usage
 ```bash
 # Start backend server
+cd backend
 nodemon server.js
 
 # Start frontend
+cd frontend
 npm run dev
 ```
 
 ## 📸 Screenshots
-![Chatbot Demo](Frontend/src/assets/Screenshot (119).png)
+![Chatbot Demo](Frontend/src/assets/Screenshot%20(119).png)
 
 ## 👥 Contributors
 - **Priyansi** - Full Stack & Chatbot Developer
