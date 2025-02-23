@@ -38,6 +38,7 @@ npm run dev
 ```
 
 ## 📸 Screenshots
+![Repobot Landing page](Frontend/src/assets/Screenshot%20(115).png)
 ![Chatbot Demo](Frontend/src/assets/Screenshot%20(119).png)
 
 ## 👥 Contributors
