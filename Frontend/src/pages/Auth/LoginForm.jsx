@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import InputField from "./InputField";
 import ErrorMessage from "./ErrorMessage";
 import SuccessMessage from "./SuccessMessage";
+import { motion } from "framer-motion";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -63,7 +64,13 @@ const LoginForm = () => {
   };
 
   return (
-    <form className="space-y-4" onSubmit={handleSubmit}>
+    <motion.form
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.2 }}
+      className="space-y-4"
+      onSubmit={handleSubmit}
+    >
       {error && <ErrorMessage message={error} />}
       {success && <SuccessMessage message={success} />}
       <InputField
@@ -84,15 +91,17 @@ const LoginForm = () => {
         onChange={handleChange}
         icon="Lock"
       />
-      <button
+      <motion.button
         type="submit"
         disabled={isLoading}
-        className={`w-full bg-[#A888B5] text-white py-2 rounded-lg transition-colors ${
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className={`w-full bg-[#A888B5] text-white py-2 rounded-lg transition-all duration-300 ${
           isLoading ? "opacity-70 cursor-not-allowed" : "hover:bg-[#A888B5]/90"
         }`}
       >
         {isLoading ? "Loading..." : "Sign In"}
-      </button>
+      </motion.button>
       <div className="mt-6 text-center text-sm text-[#441752]/70">
         Don't have an account?{" "}
         <button
@@ -103,7 +112,7 @@ const LoginForm = () => {
           Sign up
         </button>
       </div>
-    </form>
+    </motion.form>
   );
 };
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import {
   FolderGit2,
   FileText,
@@ -15,6 +16,7 @@ import {
   Moon,
 } from "lucide-react";
 import logo from "../../assets/Logo.png";
+import Navbar from "../../components/Navbar/Navbar";
 
 const FeaturesPage = () => {
   const features = [
@@ -95,85 +97,81 @@ const FeaturesPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-purple-50">
-      <nav className="flex items-center justify-between px-6 py-4">
-        <div className="flex justify-center mb-4">
-          <img src={logo} alt="Repobot Logo" className="w-32 h-16" />
-        </div>
-        <div className="flex gap-6 items-center">
-          <a href="/" className="text-gray-600 hover:text-[#441752]">
-            Home
-          </a>
-          <a href="/features" className="text-[#441752]">
-            Features
-          </a>
-          <a href="/about" className="text-gray-600 hover:text-[#441752]">
-            About
-          </a>
-          <a href="/contact" className="text-gray-600 hover:text-[#441752]">
-            Contact
-          </a>
-          <button className="bg-[#441752] text-white px-4 py-2 rounded-md hover:bg-purple-800">
-            Sign Up
-          </button>
-        </div>
-      </nav>
-
+    <>
+    <Navbar/>
+    <div className="min-h-screen bg-gradient-to-b from-white to-[#A888B5]/10 dark:from-gray-900 dark:to-gray-800">
+      
       {/* Features Section */}
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h1 className="text-5xl font-bold text-[#441752] mb-6">
+            <motion.h1
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-5xl font-bold text-[#441752] mb-6"
+            >
               Powerful Features of RepoBot
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-xl text-gray-600 max-w-3xl mx-auto"
+            >
               Enhance your GitHub experience with AI-powered repository
               management and smart insights.
-            </p>
+            </motion.p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="group bg-white p-8 rounded-lg shadow-md 
-                                hover:shadow-2xl hover:scale-105 transform 
-                                transition-all duration-300 cursor-pointer
-                                hover:bg-[#441752]"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md hover:shadow-2xl hover:scale-105 transform transition-all duration-300 cursor-pointer hover:bg-[#441752] dark:hover:bg-[#A888B5]"
               >
                 <div className="mb-6 flex justify-center">
                   <feature.Icon
                     size={32}
-                    className="text-[#441752] group-hover:text-white 
-                                        transform group-hover:scale-110 transition-all duration-300"
+                    className="text-[#441752] dark:text-[#A888B5] group-hover:text-white transform group-hover:scale-110 transition-all duration-300"
                   />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-[#441752] group-hover:text-white">
+                <h3 className="text-xl font-semibold mb-3 text-[#441752] dark:text-white group-hover:text-white">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 group-hover:text-gray-200">
+                <p className="text-gray-600 dark:text-gray-200 group-hover:text-gray-200">
                   {feature.description}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
 
           <div className="text-center mt-16">
-            <p className="text-xl text-gray-600 mb-8">
+            <motion.p
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-xl text-gray-600 mb-8"
+            >
               Ready to experience these powerful features?
-            </p>
-            <button
-              className="bg-[#441752] text-white px-8 py-4 rounded-md 
-                            hover:bg-purple-800 transform hover:scale-105 
-                            transition-all duration-300 text-lg font-semibold"
+            </motion.p>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-[#441752] text-white px-8 py-4 rounded-md hover:bg-[#A888B5] transition-all text-lg font-semibold"
             >
               Get Started Now
-            </button>
+            </motion.button>
           </div>
         </div>
       </section>
     </div>
+    </>
   );
+  
 };
 
 export default FeaturesPage;

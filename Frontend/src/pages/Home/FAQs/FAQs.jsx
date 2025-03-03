@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import logo from "../../../assets/Logo.png";
+import Navbar from "../../../components/Navbar/Navbar";
 
 const FAQPage = () => {
   const [openIndex, setOpenIndex] = useState(null);
@@ -42,84 +44,92 @@ const FAQPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-purple-50">
-      <nav className="flex items-center justify-between px-6 py-4">
-        <div className="flex justify-center mb-4">
-          <img src={logo} alt="Repobot Logo" className="w-32 h-16" />
-        </div>
-        <div className="flex gap-6 items-center">
-          <a href="/" className="text-gray-600 hover:text-[#441752]">
-            Home
-          </a>
-          <a href="/features" className="text-gray-600 hover:text-[#441752]">
-            Features
-          </a>
-          <a href="/about" className="text-gray-600 hover:text-[#441752]">
-            About
-          </a>
-          <a href="/contact" className="text-gray-600 hover:text-[#441752]">
-            Contact
-          </a>
-          <button className="bg-[#441752] text-white px-4 py-2 rounded-md hover:bg-purple-800">
-            Sign Up
-          </button>
-        </div>
-      </nav>
-
-      <div className="max-w-4xl mx-auto px-4 py-16">
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-[#441752] mb-6">
-            Frequently Asked Questions
-          </h1>
-          <p className="text-xl text-gray-600">
-            Find answers to common questions about RepoBot. Can't find what
-            you're looking for?{" "}
-            <a href="/contact" className="text-[#441752] hover:underline">
-              Contact us
-            </a>
-            .
-          </p>
-        </div>
-
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-lg shadow-md overflow-hidden"
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gradient-to-b from-white to-purple-50">
+        <div className="max-w-4xl mx-auto px-4 py-16">
+          <div className="text-center mb-16">
+            <motion.h1
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-5xl font-bold text-[#441752] mb-6"
             >
-              <button
-                className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50"
-                onClick={() => toggleFAQ(index)}
-              >
-                <h3 className="text-lg font-semibold text-[#441752]">
-                  {faq.question}
-                </h3>
-                <span className="text-2xl text-[#441752]">
-                  {openIndex === index ? "−" : "+"}
-                </span>
-              </button>
-              {openIndex === index && (
-                <div className="px-6 py-4 bg-gray-50">
-                  <p className="text-gray-600">{faq.answer}</p>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+              Frequently Asked Questions
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-xl text-gray-600"
+            >
+              Find answers to common questions about RepoBot. Can't find what
+              you're looking for?{" "}
+              <a href="/contact" className="text-[#441752] hover:underline">
+                Contact us
+              </a>
+              .
+            </motion.p>
+          </div>
 
-        <div className="text-center mt-16">
-          <p className="text-gray-600 mb-6">
-            Still have questions? We're here to help!
-          </p>
-          <a
-            href="/contact"
-            className="inline-block bg-[#441752] text-white px-6 py-3 rounded-md hover:bg-purple-800"
-          >
-            Contact Support
-          </a>
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+                className="bg-white rounded-lg shadow-md overflow-hidden"
+              >
+                <button
+                  className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-colors"
+                  onClick={() => toggleFAQ(index)}
+                >
+                  <h3 className="text-lg font-semibold text-[#441752]">
+                    {faq.question}
+                  </h3>
+                  <span className="text-2xl text-[#441752]">
+                    {openIndex === index ? "−" : "+"}
+                  </span>
+                </button>
+                <AnimatePresence>
+                  {openIndex === index && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="px-6 py-4 bg-gray-50"
+                    >
+                      <p className="text-gray-600">{faq.answer}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="text-center mt-16">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-gray-600 mb-6"
+            >
+              Still have questions? We're here to help!
+            </motion.p>
+            <motion.a
+              href="/contact"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-block bg-[#441752] text-white px-6 py-3 rounded-md hover:bg-[#A888B5] transition-colors"
+            >
+              Contact Support
+            </motion.a>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

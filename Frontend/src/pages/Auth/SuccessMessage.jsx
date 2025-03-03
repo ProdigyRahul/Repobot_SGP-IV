@@ -1,10 +1,16 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const SuccessMessage = ({ message }) => {
   return (
-    <div className="bg-green-50 text-green-500 p-3 rounded-lg mb-4">
+    <motion.div
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-lg text-sm"
+    >
       {message}
-    </div>
+    </motion.div>
   );
 };
 

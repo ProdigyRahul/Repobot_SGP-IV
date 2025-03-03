@@ -1,81 +1,81 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; // Ensure you have react-router installed
+import { Sun, Moon, X, Menu } from "lucide-react"; // Ensure you have lucide-react installed
+import Logo from "../../assets/Logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [darkMode]);
 
   return (
-    <nav className="bg-customBlue text-white shadow-lg">
-      <div className="container mx-auto flex justify-between items-center py-4 px-6">
-      
-        <div className="text-2xl font-bold font-sans">
-          <a href="/" className="hover:text-gray-200">MyApp</a>
-        </div>
+    <nav className="fixed w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm z-50 shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex items-center">
+            <img src={Logo} alt="Repobot Logo" className="mr-2 w-30 h-10" />
+          </div>
 
-    
-        <div className="md:hidden">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="focus:outline-none text-white hover:text-gray-200"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              {isOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16m-7 6h7"
-                />
-              )}
-            </svg>
-          </button>
-        </div>
+          <div className="hidden md:block">
+            <div className="flex items-center space-x-8">
+              <Link to="/" className="text-[#441752] dark:text-white font-medium">
+                Home
+              </Link>
+              <Link to="/features" className="text-[#441752]/70 dark:text-white/70 hover:text-[#441752] dark:hover:text-white">
+                Features
+              </Link>
+              <Link to="/about" className="text-[#441752]/70 dark:text-white/70 hover:text-[#441752] dark:hover:text-white">
+                About
+              </Link>
+              <Link to="/contact" className="text-[#441752]/70 dark:text-white/70 hover:text-[#441752] dark:hover:text-white">
+                Contact
+              </Link>
+              <button onClick={() => setDarkMode(!darkMode)} className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+                {darkMode ? <Sun className="w-5 h-5 text-[#441752] dark:text-white" /> : <Moon className="w-5 h-5 text-[#441752] dark:text-white" />}
+              </button>
+              <Link to="/signup" className="bg-[#441752] text-white px-6 py-2 rounded-lg hover:bg-[#A888B5]/90 dark:bg-[#A888B5] dark:hover:bg-[#441752]">
+                Sign Up
+              </Link>
+            </div>
+          </div>
 
-       
-        <div
-          className={`md:flex items-center space-x-6 ${isOpen ? 'block' : 'hidden'}`}
-        >
-          <a
-            href="/"
-            className="block mt-2 md:mt-0 text-lg font-sans hover:text-gray-200"
-          >
-            Home
-          </a>
-          <a
-            href="/about"
-            className="block mt-2 md:mt-0 text-lg font-sans hover:text-gray-200"
-          >
-            About
-          </a>
-          <a
-            href="/services"
-            className="block mt-2 md:mt-0 text-lg font-sans hover:text-gray-200"
-          >
-            Services
-          </a>
-          <a
-            href="/contact"
-            className="block mt-2 md:mt-0 text-lg font-sans hover:text-gray-200"
-          >
-            Contact
-          </a>
-          <button className="bg-gray-100 text-customBlue px-4 py-2 rounded-md hover:bg-gray-200">
-            Sign Up
+          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden">
+            {isOpen ? <X className="w-6 h-6 text-[#441752] dark:text-white" /> : <Menu className="w-6 h-6 text-[#441752] dark:text-white" />}
           </button>
         </div>
       </div>
+
+      {isOpen && (
+        <div className="md:hidden bg-white dark:bg-gray-900 border-t dark:border-gray-800">
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            <Link to="/" className="block px-3 py-2 text-[#441752] dark:text-white font-medium">
+              Home
+            </Link>
+            <Link to="/features" className="block px-3 py-2 text-[#441752]/70 dark:text-white/70">
+              Features
+            </Link>
+            <Link to="/about" className="block px-3 py-2 text-[#441752]/70 dark:text-white/70">
+              About
+            </Link>
+            <Link to="/contact" className="block px-3 py-2 text-[#441752]/70 dark:text-white/70">
+              Contact
+            </Link>
+            <button onClick={() => setDarkMode(!darkMode)} className="w-full text-left px-3 py-2 text-[#441752] dark:text-white">
+              {darkMode ? "Light Mode" : "Dark Mode"}
+            </button>
+            <Link to="/repobot" className="w-full text-left px-3 py-2 text-white bg-[#441752] dark:bg-[#A888B5] rounded-lg">
+              Get Started
+            </Link>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

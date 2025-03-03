@@ -1,7 +1,7 @@
 import React from "react";
 import { Search, MessageSquare, ChevronRight, User } from "lucide-react";
 
-const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
+const Searchbar = ({ sidebarOpen, setSidebarOpen }) => {
   const recentChats = [
     "How can I increase ton...",
     "What's the best appro...",
@@ -10,7 +10,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
   return (
     <div
-      className={`fixed md:relative w-64 h-full bg-black transform transition-transform duration-200 ease-in-out ${
+      className={`fixed md:relative w-64 h-full bg-[#441752] transform transition-transform duration-200 ease-in-out ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
       } z-40`}
     >
@@ -82,4 +82,4 @@ const UserProfile = () => (
   </div>
 );
 
-export default Sidebar;
+export default Searchbar;

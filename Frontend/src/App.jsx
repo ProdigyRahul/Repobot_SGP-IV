@@ -12,19 +12,21 @@ import About from "./pages/Home/About";
 import Contact from "./pages/Home/Contact";
 import FAQs from "./pages/Home/FAQs/FAQs";
 import Feature from "./pages/Home/Feature";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/repobot" element={<Repobot />} />
+        <Route path="/dashboard/repobot" element={<Repobot />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/faqs" element={<FAQs />} />
         <Route path="/features" element={<Feature />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );
