@@ -1,0 +1,8 @@
+Flask==3.0.0
+speechrecognition==3.10.0
+langchain-openai==0.0.1
+langchain==0.0.350
+langchain-community==0.0.10
+openai>=1.6.1,<2.0.0  # Use a compatible version of openai
+PyGithub==1.59.1
+python-dotenv==1.0.0
