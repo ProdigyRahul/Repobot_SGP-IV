@@ -16,7 +16,7 @@ const Dashboard = () => {
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-      >
+       >
         <div className="p-6">
           <div className="flex items-center space-x-2 mb-8">
             <svg
@@ -81,6 +81,7 @@ const Dashboard = () => {
               </motion.div>
             </Link>
 
+            <Link to="/filesummarization">
             <motion.div
               className="flex items-center space-x-3 p-3 hover:bg-[#A888B5]/20 rounded-md"
               whileHover={{ scale: 1.03 }}
@@ -100,29 +101,32 @@ const Dashboard = () => {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span>Meetings</span>
+              <span>Files Summarization</span>
             </motion.div>
+            </Link>
 
-            <motion.div
-              className="flex items-center space-x-3 p-3 hover:bg-[#A888B5]/20 rounded-md"
-              whileHover={{ scale: 1.03 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-            >
-              <svg
-                className="h-5 w-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+            <Link to="/dashboard/speech-text">
+              <motion.div
+                className="flex items-center space-x-3 p-3 hover:bg-[#A888B5]/20 rounded-md"
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                <path
-                  d="M3 10H21M7 15H8M12 15H13M17 15H18M5 19H19C20.1046 19 21 18.1046 21 17V7C21 5.89543 20.1046 5 19 5H5C3.89543 5 3 5.89543 3 7V17C3 18.1046 3.89543 19 5 19Z"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
-              <span>speech-text</span>
-            </motion.div>
+                <svg
+                  className="h-5 w-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3 10H21M7 15H8M12 15H13M17 15H18M5 19H19C20.1046 19 21 18.1046 21 17V7C21 5.89543 20.1046 5 19 5H5C3.89543 5 3 5.89543 3 7V17C3 18.1046 3.89543 19 5 19Z"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <span>speech-text</span>
+              </motion.div>
+            </Link>
           </div>
 
           <div className="space-y-1 mb-6">
@@ -131,11 +135,11 @@ const Dashboard = () => {
             </h3>
 
             {[
-              "Normal Human",
-              "normalhumanv2",
-              "Docker Py",
-              "Docker Gen AI",
-              "ChatPDF",
+              "CureNest",
+              "Pose Estimation",
+              " U-Net and V-Net",
+              "Stress Level Detection",
+              "RecipeSwap",
             ].map((project, index) => (
               <motion.div
                 key={index}
@@ -269,7 +273,7 @@ const Dashboard = () => {
                   Ask a question
                 </h2>
                 <p className="text-gray-500 mb-4">
-                  Repobot has knowledge of the codebase
+                  Repobot has knowledge of the all the code of github
                 </p>
 
                 <div className="mb-4">
@@ -292,7 +296,7 @@ const Dashboard = () => {
               </div>
             </motion.div>
 
-            {/* Right Column - Meeting Section */}
+            {/* Right Column - code files upload Section */}
             <motion.div
               className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm"
               initial={{ y: 20, opacity: 0 }}
@@ -346,10 +350,10 @@ const Dashboard = () => {
                 </motion.div>
 
                 <h2 className="text-xl font-semibold mb-1 text-gray-800">
-                  Create a new meeting
+                  Create a new Chat
                 </h2>
                 <p className="text-gray-500 mb-6">
-                  Analyse your meeting with Dionysius.
+                  Analyze your meeting with Repobot.
                   <br />
                   Powered by AI.
                 </p>
@@ -373,7 +377,7 @@ const Dashboard = () => {
                       strokeLinejoin="round"
                     />
                   </svg>
-                  <span>Upload Meeting</span>
+                  <span>Upload File</span>
                 </motion.button>
               </div>
             </motion.div>

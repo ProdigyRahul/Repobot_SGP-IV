@@ -13,6 +13,9 @@ import Contact from "./pages/Home/Contact";
 import FAQs from "./pages/Home/FAQs/FAQs";
 import Feature from "./pages/Home/Feature";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import SpeechtoText from "./pages/SpeechtoText/SpeechtoText";
+import ChatBot from "./pages/Home/Chatbot";
+import FileSummarization from "./pages/File Summarization/File-summarization";
 
 const App = () => {
   return (
@@ -27,6 +30,9 @@ const App = () => {
         <Route path="/faqs" element={<FAQs />} />
         <Route path="/features" element={<Feature />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/speech-text" element={<SpeechtoText />} />
+        <Route path="/chatbot" element={<ChatBot />} />
+        <Route path="/filesummarization" element={<FileSummarization/>}/>
       </Routes>
     </Router>
   );

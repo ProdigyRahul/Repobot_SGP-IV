@@ -54,7 +54,7 @@ const LoginForm = () => {
       setSuccess("Login successful!");
       if (data.token) {
         localStorage.setItem("token", data.token);
-        setTimeout(() => navigate("/repobot"), 1000);
+        setTimeout(() => navigate("/dashboard"), 1000);
       }
     } catch (error) {
       setError(error.message || "Network error occurred");
