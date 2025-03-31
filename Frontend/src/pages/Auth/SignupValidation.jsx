@@ -1,5 +1,10 @@
 export const validateForm = (formData, setError) => {
-  if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
+  if (
+    !formData.name ||
+    !formData.email ||
+    !formData.password ||
+    !formData.confirmPassword
+  ) {
     setError("Please fill in all required fields.");
     return false;
   }

@@ -27,12 +27,13 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/" element={<Footer />} />
         <Route path="/faqs" element={<FAQs />} />
         <Route path="/features" element={<Feature />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/speech-text" element={<SpeechtoText />} />
         <Route path="/chatbot" element={<ChatBot />} />
-        <Route path="/filesummarization" element={<FileSummarization/>}/>
+        <Route path="/filesummarization" element={<FileSummarization />} />
       </Routes>
     </Router>
   );

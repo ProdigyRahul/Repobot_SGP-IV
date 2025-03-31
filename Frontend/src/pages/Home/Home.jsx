@@ -9,13 +9,16 @@ import {
   Moon,
   Sun,
 } from "lucide-react";
+import Feature from "../../pages/Home/Feature";
+import About from "../../pages/Home/About";
+import Contact from "../../pages/Home/Contact";
 import Footer from "../../components/Footer/Footer";
 import Navbar from "../../components/Navbar/Navbar";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo.png";
 import ChatBot from "./Chatbot";
 
-const Feature = ({ icon: Icon, title, description }) => (
+const FeatureCard = ({ icon: Icon, title, description }) => (
   <motion.div
     whileHover={{ scale: 1.05 }}
     className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow"
@@ -75,17 +78,17 @@ const LandingPage = () => {
         <div className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-t from-[#A888B5]/10 dark:from-gray-800">
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <Feature
+              <FeatureCard
                 icon={MessageCircle}
                 title="Smart Conversations"
                 description="Engage in intelligent conversations with AI that understands your business context."
               />
-              <Feature
+              <FeatureCard
                 icon={Zap}
                 title="Quick Results"
                 description="Get instant insights and recommendations to drive your business forward."
               />
-              <Feature
+              <FeatureCard
                 icon={Shield}
                 title="Secure Platform"
                 description="Your data is protected with enterprise-grade security measures."
@@ -113,10 +116,13 @@ const LandingPage = () => {
             </motion.div>
           </div>
         </div>
+        <Feature />
+        <About />
+        <Contact />
+        {/* <Footer /> */}
         <div className="fixed bottom-4 right-4">
           <ChatBot />
         </div>
-        <Footer />
       </div>
     </>
   );

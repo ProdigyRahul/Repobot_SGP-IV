@@ -96,17 +96,17 @@ const LoginForm = () => {
         disabled={isLoading}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className={`w-full bg-[#A888B5] text-white py-2 rounded-lg transition-all duration-300 ${
-          isLoading ? "opacity-70 cursor-not-allowed" : "hover:bg-[#A888B5]/90"
+        className={`w-full bg-accent-light dark:bg-accent-dark text-white py-2 rounded-lg transition-all duration-300 ${
+          isLoading ? "opacity-70 cursor-not-allowed" : "hover:opacity-90"
         }`}
       >
         {isLoading ? "Loading..." : "Sign In"}
       </motion.button>
-      <div className="mt-6 text-center text-sm text-[#441752]/70">
+      <div className="mt-6 text-center text-sm text-muted-light dark:text-muted-dark">
         Don't have an account?{" "}
         <button
           onClick={() => navigate("/signup")}
-          className="text-[#A888B5] hover:underline"
+          className="text-accent-light dark:text-accent-dark hover:underline"
           disabled={isLoading}
         >
           Sign up

@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import SignupFields from './SignupFields';
+import SignupFields from "./SignupFields";
 
 const SignupForm = ({ formData, handleChange, handleSubmit, isLoading }) => {
   return (
@@ -18,8 +18,8 @@ const SignupForm = ({ formData, handleChange, handleSubmit, isLoading }) => {
         disabled={isLoading}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className={`w-full bg-[#441752] text-white py-2 rounded-lg transition-all duration-300 ${
-          isLoading ? "opacity-70 cursor-not-allowed" : "hover:bg-[#A888B5]/90"
+        className={`w-full bg-primary-light dark:bg-primary-dark text-white py-2 rounded-lg transition-all duration-300 ${
+          isLoading ? "opacity-70 cursor-not-allowed" : "hover:opacity-90"
         }`}
       >
         {isLoading ? "Loading..." : "Create Account"}

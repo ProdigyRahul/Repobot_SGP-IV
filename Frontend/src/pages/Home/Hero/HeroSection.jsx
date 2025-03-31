@@ -29,7 +29,7 @@ const HeroSection = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Link
-              to="/login"
+              to="/signup"
               className="bg-[#441752] text-white px-8 py-3 rounded-lg hover:bg-[#A888B5]/90 flex items-center justify-center transition-colors"
             >
               Get Started

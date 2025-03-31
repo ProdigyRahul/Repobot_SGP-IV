@@ -1,22 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // Ensure you have react-router installed
-import { Sun, Moon, X, Menu } from "lucide-react"; // Ensure you have lucide-react installed
+import { useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import { Sun, Moon, X, Menu } from "lucide-react";
 import Logo from "../../assets/Logo.png";
+import DarkModeContext from "../../contexts/DarkModeContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
+  const { isDarkMode, toggleDarkMode } = useContext(DarkModeContext);
 
   return (
-    <nav className="fixed w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm z-50 shadow-sm">
+    <nav className="fixed w-full bg-background-light dark:bg-background-dark backdrop-blur-sm z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
@@ -25,52 +18,96 @@ const Navbar = () => {
 
           <div className="hidden md:block">
             <div className="flex items-center space-x-8">
-              <Link to="/" className="text-[#441752] dark:text-white font-medium">
+              <Link
+                to="/"
+                className="text-text-light dark:text-text-dark font-medium"
+              >
                 Home
               </Link>
-              <Link to="/features" className="text-[#441752]/70 dark:text-white/70 hover:text-[#441752] dark:hover:text-white">
+              <Link
+                to="/features"
+                className="text-accent-light dark:text-primary-dark hover:text-primary-light dark:hover:text-primary-dark"
+              >
                 Features
-              </Link>
-              <Link to="/about" className="text-[#441752]/70 dark:text-white/70 hover:text-[#441752] dark:hover:text-white">
+              </Link> 
+              <Link
+                to="/about"
+                className="text-accent-light dark:text-primary-dark hover:text-primary-light dark:hover:text-primary-dark"
+              >
                 About
               </Link>
-              <Link to="/contact" className="text-[#441752]/70 dark:text-white/70 hover:text-[#441752] dark:hover:text-white">
+              <Link
+                to="/contact"
+                className="text-accent-light dark:text-primary-dark hover:text-primary-light dark:hover:text-primary-dark"
+              >
                 Contact
               </Link>
-              <button onClick={() => setDarkMode(!darkMode)} className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
-                {darkMode ? <Sun className="w-5 h-5 text-[#441752] dark:text-white" /> : <Moon className="w-5 h-5 text-[#441752] dark:text-white" />}
+              <button
+                onClick={toggleDarkMode}
+                className="p-2 rounded-lg hover:bg-border-light dark:hover:bg-border-dark"
+              >
+                {isDarkMode ? (
+                  <Sun className="w-5 h-5 text-primary-light dark:text-primary-dark" />
+                ) : (
+                  <Moon className="w-5 h-5 text-primary-light dark:text-primary-dark" />
+                )}
               </button>
-              <Link to="/signup" className="bg-[#441752] text-white px-6 py-2 rounded-lg hover:bg-[#A888B5]/90 dark:bg-[#A888B5] dark:hover:bg-[#441752]">
+              <Link
+                to="/signup"
+                className="bg-primary-light text-white px-6 py-2 rounded-lg hover:bg-accent-light dark:bg-primary-dark dark:hover:bg-accent-dark"
+              >
                 Sign Up
               </Link>
             </div>
           </div>
 
           <button onClick={() => setIsOpen(!isOpen)} className="md:hidden">
-            {isOpen ? <X className="w-6 h-6 text-[#441752] dark:text-white" /> : <Menu className="w-6 h-6 text-[#441752] dark:text-white" />}
+            {isOpen ? (
+              <X className="w-6 h-6 text-primary-light dark:text-primary-dark" />
+            ) : (
+              <Menu className="w-6 h-6 text-primary-light dark:text-primary-dark" />
+            )}
           </button>
         </div>
       </div>
 
       {isOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-900 border-t dark:border-gray-800">
+        <div className="md:hidden bg-background-light dark:bg-background-dark border-t dark:border-border-dark">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <Link to="/" className="block px-3 py-2 text-[#441752] dark:text-white font-medium">
+            <Link
+              to="/"
+              className="block px-3 py-2 text-text-light dark:text-text-dark font-medium"
+            >
               Home
             </Link>
-            <Link to="/features" className="block px-3 py-2 text-[#441752]/70 dark:text-white/70">
+            <Link
+              to="/features"
+              className="block px-3 py-2 text-accent-light dark:text-accent-dark"
+            >
               Features
             </Link>
-            <Link to="/about" className="block px-3 py-2 text-[#441752]/70 dark:text-white/70">
+            <Link
+              to="/about"
+              className="block px-3 py-2 text-accent-light dark:text-accent-dark"
+            >
               About
             </Link>
-            <Link to="/contact" className="block px-3 py-2 text-[#441752]/70 dark:text-white/70">
+            <Link
+              to="/contact"
+              className="block px-3 py-2 text-accent-light dark:text-accent-dark"
+            >
               Contact
             </Link>
-            <button onClick={() => setDarkMode(!darkMode)} className="w-full text-left px-3 py-2 text-[#441752] dark:text-white">
-              {darkMode ? "Light Mode" : "Dark Mode"}
+            <button
+              onClick={toggleDarkMode}
+              className="w-full text-left px-3 py-2 text-primary-light dark:text-primary-dark"
+            >
+              {isDarkMode ? "Light Mode" : "Dark Mode"}
             </button>
-            <Link to="/repobot" className="w-full text-left px-3 py-2 text-white bg-[#441752] dark:bg-[#A888B5] rounded-lg">
+            <Link
+              to="/repobot"
+              className="w-full text-left px-3 py-2 text-white bg-primary-light dark:bg-primary-dark rounded-lg"
+            >
               Get Started
             </Link>
           </div>

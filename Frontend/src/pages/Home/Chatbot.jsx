@@ -7,11 +7,13 @@ const ChatBot = () => {
   const [messages, setMessages] = useState([
     {
       type: "bot",
-      content: "Hi there! 👋 I'm RepoBot, your GitHub assistant. How can I help you today?",
+      content:
+        "Hi there! 👋 I'm RepoBot, your GitHub assistant. How can I help you today?",
     },
   ]);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
+  const [repoUrl, setRepoUrl] = useState("");
   const messagesEndRef = useRef(null);
   const modalRef = useRef(null);
 
@@ -37,6 +39,17 @@ const ChatBot = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  useEffect(() => {
+    const testConnection = async () => {
+      try {
+        const res = await axios.get("http://127.0.0.1:5000/health");
+        console.log("Backend connection OK:", res.data);
+      } catch (err) {
+        console.error("Backend connection failed:", err);
+      }
+    };
+    testConnection();
+  }, []);
 
   const handleSend = async () => {
     if (inputValue.trim() === "") return;
@@ -47,16 +60,28 @@ const ChatBot = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://127.0.0.1:5000/chat", {
+      const response = await axios.post("http://127.0.0.1:5000/repo-chat", {
         query: inputValue,
+        ...(repoUrl && { repo_url: repoUrl }), 
       });
 
-      if (response && response.data) {
+      if (response.data && response.data.response) {
         setMessages([
           ...newMessages,
           {
             type: "bot",
-            content: response.data.message,
+            content: response.data.response,
+            confidence: response.data.confidence,
+            sources: response.data.sources,
+          },
+        ]);
+      } else {
+        setMessages([
+          ...newMessages,
+          {
+            type: "bot",
+            content:
+              "Sorry, I couldn't process your request. Please try again.",
           },
         ]);
       }
@@ -67,7 +92,7 @@ const ChatBot = () => {
         {
           type: "bot",
           content:
-            "Sorry, I encountered an error processing your request. Please try again.",
+            "There was an error connecting to the server. Please try again later.",
         },
       ]);
     } finally {
@@ -95,10 +120,29 @@ const ChatBot = () => {
     setMessages([
       {
         type: "bot",
-        content: "Hi there! 👋 I'm RepoBot, your GitHub assistant. How can I help you today?",
+        content:
+          "Hi there! 👋 I'm RepoBot, your GitHub assistant. How can I help you today?",
       },
     ]);
     setInputValue("");
+    setRepoUrl("");
+  };
+
+  const handleRepoUrlChange = (e) => {
+    setRepoUrl(e.target.value);
+  };
+
+  const setRepositoryContext = (e) => {
+    e.stopPropagation();
+    if (repoUrl.trim()) {
+      setMessages([
+        ...messages,
+        {
+          type: "bot",
+          content: `I'll now focus on repository: ${repoUrl}. Ask me anything about it!`,
+        },
+      ]);
+    }
   };
 
   return (

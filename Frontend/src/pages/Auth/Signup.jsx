@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import logo from '../../assets/logo.png';
-import SignupForm from './SignupForm';
-import { validateForm } from './SignupValidation';
+import logo from "../../assets/logo.png";
+import SignupForm from "./SignupForm";
+import { validateForm } from "./SignupValidation";
+import ErrorMessage from "./ErrorMessage";
+import SuccessMessage from "./SuccessMessage";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -66,51 +68,35 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#441752]/5 to-[#A888B5]/10 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-light/5 to-accent-light/10 dark:from-primary-dark/10 dark:to-accent-dark/20 p-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8"
+        className="bg-background-light dark:bg-background-dark rounded-2xl shadow-xl dark:shadow-lg w-full max-w-md p-6 md:p-8"
       >
         <div className="flex justify-center mb-4">
           <img src={logo} alt="Repobot Logo" className="w-32 h-16" />
         </div>
-        <h2 className="text-2xl font-bold text-[#441752] mb-6 text-center">Create Account</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-primary-light dark:text-primary-dark mb-6 text-center">
+          Create Account
+        </h2>
 
-        {error && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="bg-red-50 text-red-500 p-3 rounded-lg mb-4"
-          >
-            {error}
-          </motion.div>
-        )}
-        {success && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="bg-green-50 text-green-500 p-3 rounded-lg mb-4"
-          >
-            {success}
-          </motion.div>
-        )}
+        {error && <ErrorMessage message={error} />}
+        {success && <SuccessMessage message={success} />}
 
-        <SignupForm 
-          formData={formData} 
-          handleChange={handleChange} 
-          handleSubmit={handleSubmit} 
-          isLoading={isLoading} 
+        <SignupForm
+          formData={formData}
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          isLoading={isLoading}
         />
 
-        <div className="mt-6 text-center text-sm text-[#441752]/70">
-          Already have an account? 
+        <div className="mt-6 text-center text-sm text-muted-light dark:text-muted-dark">
+          Already have an account?
           <button
             onClick={() => navigate("/login")}
-            className="text-[#A888B5] hover:underline"
+            className="text-accent-light dark:text-accent-dark hover:underline ml-1"
             disabled={isLoading}
           >
             Sign in
