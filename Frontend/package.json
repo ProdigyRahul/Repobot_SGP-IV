@@ -10,8 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+<<<<<<< HEAD
     "antd": "^5.24.5",
     "axios": "^1.7.9",
+=======
+    "@headlessui/react": "^2.2.0",
+    "@heroicons/react": "^1.0.6",
+    "axios": "^1.8.4",
+>>>>>>> f0fe547c7d1dcc8c9ee4291c1a984d017717409e
     "framer-motion": "^12.4.9",
     "lucide-react": "^0.469.0",
     "react": "^18.3.1",
@@ -19,7 +25,7 @@
     "react-feather": "^2.0.10",
     "react-hot-toast": "^2.5.2",
     "react-markdown": "^10.0.1",
-    "react-router-dom": "^7.2.0"
+    "react-router-dom": "^7.4.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
