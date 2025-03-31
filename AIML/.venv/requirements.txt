@@ -1,8 +1,15 @@
 Flask==3.0.0
 speechrecognition==3.10.0
+langchain==0.1.17
 langchain-openai==0.0.1
-langchain==0.0.350
-langchain-community==0.0.10
-openai>=1.6.1,<2.0.0  # Use a compatible version of openai
+langchain-community==0.0.36  # Updated to match langchain
+langchain-google-genai==0.0.9
+openai>=1.6.1,<2.0.0
 PyGithub==1.59.1
 python-dotenv==1.0.0
+fastapi==0.109.0
+uvicorn==0.24.0
+google-generativeai==0.3.1
+requests==2.31.0
+pydantic==2.6.1
+typing-extensions==4.9.0

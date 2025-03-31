@@ -1,48 +1,66 @@
 import os
-from langchain_openai import OpenAI 
-from langchain.chains.summarize import load_summarize_chain
+from typing import Optional
+import google.generativeai as genai
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.docstore.document import Document
 from dotenv import load_dotenv
 
-# Load environment variables
 load_dotenv()
 
 class FileSummarization:
     def __init__(self):
-        # Initialize Gemini API (via GooglePalm)
-        self.GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-        if not self.GEMINI_API_KEY:
-            raise ValueError("GEMINI_API_KEY environment variable is not set.")
+      
+        genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
+        self.model = genai.GenerativeModel('gemini-1.5-pro')
 
-        self.llm = GooglePalm(google_api_key=self.GEMINI_API_KEY, temperature=0.7)
-
-    def summarize_code(self, file_path):
+    def _read_file_content(self, file_path: str) -> str:
         """
-        Summarize the code from the uploaded file.
+        Read file content safely with large file support
         """
         try:
-            # Read the file content
-            with open(file_path, "r", encoding="utf-8") as file:
-                code_content = file.read()
-
-            # Split the code into smaller chunks for summarization
-            text_splitter = RecursiveCharacterTextSplitter(
-                chunk_size=1000,  # Adjust chunk size as needed
-                chunk_overlap=200,  # Overlap to maintain context
-            )
-            texts = text_splitter.split_text(code_content)
-
-            # Convert text chunks into LangChain Documents
-            docs = [Document(page_content=text) for text in texts]
-
-            # Load the summarization chain
-            chain = load_summarize_chain(self.llm, chain_type="map_reduce")
-
-            # Summarize the code
-            summary = chain.run(docs)
-            return summary
-
+          
+            with open(file_path, 'r', encoding='utf-8') as file:
+                content = file.read()
+         
+            if len(content) > 50000:
+                text_splitter = RecursiveCharacterTextSplitter(
+                    chunk_size=50000, 
+                    chunk_overlap=1000
+                )
+                chunks = text_splitter.split_text(content)
+                content = ' '.join(chunks[:3])  
+            
+            return content
         except Exception as e:
-            print(f"Error summarizing code: {e}")
-            return None
+            raise RuntimeError(f"Error reading file: {e}")
+
+    def summarize_file(self, file_path: str) -> str:
+        """
+        Generate a comprehensive file summary using Gemini
+        """
+        try:
+         
+            file_content = self._read_file_content(file_path)
+       
+            file_extension = os.path.splitext(file_path)[1]
+            
+           
+            prompt = f"""
+            Analyze the following {file_extension} code file and provide a modern, professional summary:
+
+            1. 🔍 Overview: Give a high-level description of the file's purpose
+            2. 🧩 Key Components: List and explain the main functions/classes
+            3. 🚀 Technical Highlights: Discuss notable technical implementations
+            4. 📌 Key Technologies/Frameworks Used
+            5. ⚠️ Potential Improvements or Observations
+
+            File Content:
+            {file_content[:10000]}  # Limit to first 10000 chars
+            """
+            
+  
+            response = self.model.generate_content(prompt)
+            
+            return response.text
+        
+        except Exception as e:
+            return f"Summarization Error: {str(e)}"
