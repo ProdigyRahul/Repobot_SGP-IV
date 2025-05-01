@@ -10,14 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
     "antd": "^5.24.5",
-    "axios": "^1.7.9",
-=======
     "@headlessui/react": "^2.2.0",
-    "@heroicons/react": "^1.0.6",
     "axios": "^1.8.4",
->>>>>>> f0fe547c7d1dcc8c9ee4291c1a984d017717409e
     "framer-motion": "^12.4.9",
     "lucide-react": "^0.469.0",
     "react": "^18.3.1",
