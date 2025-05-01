@@ -9,6 +9,7 @@ import Footer from "./components/Footer/Footer";
 import { AuthModal } from "/src/components/Footer/Footer.jsx";
 import Signup from "./pages/Auth/Signup";
 import Login from "./pages/Auth/Login";
+import AuthSuccess from "./pages/Auth/AuthSuccess";
 import About from "./pages/Home/About";
 import Contact from "./pages/Home/Contact";
 import FAQs from "./pages/Home/FAQs/FAQs";
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/dashboard/repobot" element={<Repobot />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/auth/success" element={<AuthSuccess />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faqs" element={<FAQs />} />

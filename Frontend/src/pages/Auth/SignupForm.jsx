@@ -16,9 +16,9 @@ const SignupForm = ({ formData, handleChange, handleSubmit, isLoading }) => {
       <motion.button
         type="submit"
         disabled={isLoading}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className={`w-full bg-primary-light dark:bg-primary-dark text-white py-2 rounded-lg transition-all duration-300 ${
+        whileHover={{ scale: 1.03 }}
+        whileTap={{ scale: 0.98 }}
+        className={`w-full bg-accent-dark text-white py-3 rounded-lg font-medium shadow-lg transition-all duration-300 ${
           isLoading ? "opacity-70 cursor-not-allowed" : "hover:opacity-90"
         }`}
       >

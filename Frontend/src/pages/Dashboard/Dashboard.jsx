@@ -1,19 +1,135 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BackButton from "../../UI/BackButton";
 import axios from "axios";
+import { useAuth } from "../../contexts/AuthContext";
+import { User, LogOut, ChevronLeft, Home, PlusCircle } from "lucide-react";
 
 const Dashboard = () => {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [owner, setOwner] = useState("");
   const [repo, setRepo] = useState("");
   const [summary, setSummary] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [question, setQuestion] = useState(
-    "Which file should I edit to change the home page?"
-  );
+  const [projects, setProjects] = useState([]);
+  const [isCreatingProject, setIsCreatingProject] = useState(false);
+  const [newProjectName, setNewProjectName] = useState("");
+  const [projectsLoading, setProjectsLoading] = useState(true);
+
+  // Fetch user's projects
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setProjectsLoading(true);
+        const token = localStorage.getItem("token");
+        if (!token) return;
+        
+        const response = await axios.get("http://localhost:5000/api/projects", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        
+        if (response.data) {
+          setProjects(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      } finally {
+        setProjectsLoading(false);
+      }
+    };
+    
+    fetchProjects();
+  }, []);
+  
+  const handleCreateProject = async () => {
+    if (!newProjectName.trim()) return;
+    
+    try {
+      setIsLoading(true);
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+      
+      const response = await axios.post(
+        "http://localhost:5000/api/projects",
+        {
+          name: newProjectName,
+          description: ""
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      
+      if (response.data) {
+        // Add new project to the list and make it active
+        setProjects(prev => [response.data, ...prev.map(p => ({ ...p, isActive: false }))]);
+        setNewProjectName("");
+        setIsCreatingProject(false);
+      }
+    } catch (error) {
+      console.error("Error creating project:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+  const handleActivateProject = async (projectId) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+      
+      await axios.patch(
+        `http://localhost:5000/api/projects/${projectId}/activate`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      
+      // Update local state
+      setProjects(prev => 
+        prev.map(project => ({
+          ...project,
+          isActive: project._id === projectId
+        }))
+      );
+    } catch (error) {
+      console.error("Error activating project:", error);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      // Call backend logout endpoint if available
+      const token = localStorage.getItem("token");
+      if (token) {
+        await axios.get("http://localhost:5000/api/auth/logout", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
+    } finally {
+      // Local logout always happens even if API call fails
+      logout();
+      navigate("/login");
+    }
+  };
 
   const handleAnalyze = async () => {
     if (!owner || !repo) {
@@ -28,11 +144,12 @@ const Dashboard = () => {
     try {
       console.log("Sending request to backend..."); // Debug log
       const response = await axios.post(
-        "http://127.0.0.1:5000/repo-summarize",
+        "http://localhost:5000/repo-summarize",
         { owner, repo },
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`
           },
         }
       );
@@ -88,21 +205,46 @@ const Dashboard = () => {
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="p-6">
-          <div className="hidden md:flex items-center space-x-2 mb-8">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              viewBox="0 0 24 24"
-            >
-              <path fill="currentColor" d="M12 3L2 12h3v8h14v-8h3L12 3z" />
-            </svg>
+        <div className="p-6 flex flex-col h-full">
+          {/* User Profile Section - Removed back arrow */}
+          <div className="mb-6">
+            <Link to="/profile">
+              <motion.div 
+                className="flex items-center p-2 rounded-lg hover:bg-accent-light/20 dark:hover:bg-accent-dark/20"
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                {user?.photoURL ? (
+                  <img 
+                    src={user.photoURL} 
+                    alt="Profile" 
+                    className="w-9 h-9 rounded-full object-cover mr-3 border-2 border-accent-dark"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = `https://ui-avatars.com/api/?name=${user?.name || 'User'}&background=random`;
+                    }}
+                  />
+                ) : (
+                  <div className="w-9 h-9 rounded-full bg-purple-700 flex items-center justify-center mr-3">
+                    <span className="text-white font-medium">{user?.name?.charAt(0) || "R"}</span>
+                  </div>
+                )}
+                <div>
+                  <p className="font-medium">{user?.name || "Rahul Mistry"}</p>
+                  <p className="text-xs text-text-dark/60">{user?.email || "rahulmistry.sde@gmail.com"}</p>
+                </div>
+              </motion.div>
+            </Link>
+          </div>
+
+          <div className="flex items-center space-x-2 mb-4">
+            <Home className="h-6 w-6" />
             <h1 className="text-xl font-semibold">Repobot</h1>
           </div>
 
           <div className="space-y-1 mb-8">
             <h3 className="text-xs uppercase text-accent-light dark:text-accent-dark font-medium mb-2">
-              Application
+              APPLICATION
             </h3>
 
             <motion.div
@@ -202,36 +344,81 @@ const Dashboard = () => {
           </div>
 
           <div className="space-y-1 mb-6">
-            <h3 className="text-xs uppercase text-accent-light dark:text-accent-dark font-medium mb-2">
-              Your Projects
-            </h3>
-
-            {[
-              "CureNest",
-              "Pose Estimation",
-              "U-Net and V-Net",
-              "Stress Level Detection",
-              "RecipeSwap",
-            ].map((project, index) => (
-              <motion.div
-                key={index}
-                className={`flex items-center space-x-3 p-3 rounded-md ${
-                  index === 3
-                    ? "bg-accent-light/20 dark:bg-accent-dark/20"
-                    : "hover:bg-accent-light/20 dark:hover:bg-accent-dark/20"
-                }`}
-                whileHover={{ scale: 1.03 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="text-xs uppercase text-accent-light dark:text-accent-dark font-medium">
+                YOUR PROJECTS
+              </h3>
+              <motion.button
+                onClick={() => setIsCreatingProject(true)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="text-accent-dark hover:text-accent-dark/80"
               >
-                <div className="w-6 h-6 flex items-center justify-center bg-accent-light/30 dark:bg-accent-dark/30 rounded">
-                  <span className="text-xs">{project.charAt(0)}</span>
-                </div>
-                <span>{project}</span>
+                <PlusCircle size={18} />
+              </motion.button>
+            </div>
+
+            {isCreatingProject ? (
+              <motion.div 
+                initial={{ opacity: 0, y: -10 }} 
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-center mb-2"
+              >
+                <input
+                  type="text"
+                  value={newProjectName}
+                  onChange={(e) => setNewProjectName(e.target.value)}
+                  placeholder="Project name"
+                  className="flex-1 py-2 px-3 bg-background-dark text-text-dark rounded-l-md border-0 focus:ring-2 focus:ring-accent-dark"
+                  autoFocus
+                />
+                <button
+                  onClick={handleCreateProject}
+                  disabled={!newProjectName.trim() || isLoading}
+                  className="py-2 px-3 bg-accent-dark text-white rounded-r-md hover:bg-accent-dark/90 transition-colors disabled:opacity-50"
+                >
+                  {isLoading ? "..." : "Add"}
+                </button>
               </motion.div>
-            ))}
+            ) : null}
+
+            {projectsLoading ? (
+              // Loading skeleton
+              <div className="space-y-2 animate-pulse">
+                {[1, 2, 3].map(i => (
+                  <div key={i} className="h-12 bg-accent-light/10 dark:bg-accent-dark/10 rounded-md"></div>
+                ))}
+              </div>
+            ) : projects.length > 0 ? (
+              // Project list
+              projects.map((project) => (
+                <motion.div
+                  key={project._id}
+                  className={`flex items-center space-x-3 p-3 rounded-md ${
+                    project.isActive
+                      ? "bg-accent-light/20 dark:bg-accent-dark/20"
+                      : "hover:bg-accent-light/20 dark:hover:bg-accent-dark/20"
+                  }`}
+                  whileHover={{ scale: 1.03 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  onClick={() => handleActivateProject(project._id)}
+                >
+                  <div className="w-6 h-6 flex items-center justify-center bg-accent-light/30 dark:bg-accent-dark/30 rounded">
+                    <span className="text-xs">{project.name.charAt(0)}</span>
+                  </div>
+                  <span>{project.name}</span>
+                </motion.div>
+              ))
+            ) : (
+              // No projects message
+              <div className="text-center py-4 text-sm text-text-dark dark:text-text-light">
+                No projects yet. Create one to get started.
+              </div>
+            )}
           </div>
 
-          <motion.div
+          <motion.button
+            onClick={() => setIsCreatingProject(true)}
             className="flex items-center space-x-2 p-3 hover:bg-accent-light/20 dark:hover:bg-accent-dark/20 rounded-md"
             whileHover={{ scale: 1.03 }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -250,7 +437,20 @@ const Dashboard = () => {
               />
             </svg>
             <span>Create Project</span>
-          </motion.div>
+          </motion.button>
+          
+          {/* Logout button at the bottom of sidebar */}
+          <div className="mt-auto">
+            <motion.button
+              onClick={handleLogout}
+              className="flex w-full items-center space-x-2 p-3 text-red-400 hover:bg-red-500/10 rounded-md"
+              whileHover={{ scale: 1.03 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
+              <LogOut className="h-5 w-5" />
+              <span>Logout</span>
+            </motion.button>
+          </div>
         </div>
       </motion.div>
 

@@ -3,6 +3,7 @@ const User = require("../models/Users");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const sendMail = require("../utils/mailer");
+const passport = require("passport");
 
 const router = express.Router();
 
@@ -17,16 +18,14 @@ const validatePassword = (password) => {
   return passwordRegex.test(password);
 };
 
-
-
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
 
-// Signup
+// Signup with email and password
 router.post("/signup", async (req, res) => {
   try {
-    const { name, email, password, phone } = req.body;
+    const { name, email, password, confirmPassword, phone, photoURL } = req.body;
 
     if (!name || !email || !password) {
       return res.status(400).json({ message: "All fields are required." });
@@ -77,14 +76,18 @@ router.post("/signup", async (req, res) => {
       email,
       password,
       phone,
+      photoURL: photoURL || null,
     });
 
     if (user) {
+      const token = generateToken(user._id);
+      
       res.status(201).json({
         id: user._id,
         name: user.name,
         email: user.email,
-        token: generateToken(user._id),
+        photoURL: user.photoURL,
+        token,
         message: "User created successfully",
       });
     }
@@ -94,60 +97,119 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-// Login 
-router.post("/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    console.log("Received login request:", email, password);
-
-    if (!email || !password) {
-      console.log("Missing email or password");
-      return res
-        .status(400)
-        .json({ message: "Email and password are required." });
+// Login with email and password
+router.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return res.status(500).json({ message: err.message });
     }
-
-    const user = await User.findOne({ email });
-    console.log("User found:", user);
-
     if (!user) {
-      console.log("User not found in database");
-      return res.status(401).json({ message: "Invalid email or password." });
+      return res.status(401).json({ message: info.message });
     }
-
-    const isMatch = await user.matchPassword(password);
-    console.log("Password match:", isMatch);
-
-    if (!isMatch) {
-      console.log("Password does not match");
-      return res.status(401).json({ message: "Invalid email or password." });
-    }
-
+    
+    // Generate JWT token
     const token = generateToken(user._id);
-    console.log("Generated token:", token);
-
-
+    
+    // Send success response with photoURL
     res.status(200).json({
       id: user._id,
       name: user.name,
       email: user.email,
+      photoURL: user.photoURL || null,
       token,
       message: "Login successful",
     });
-
-
+    
+    // Optional: Send login notification email
     const subject = "Login Successful!";
     const text = `Hello ${user.name},\n\nYou have successfully logged into your account.\nIf this wasn't you, please contact support immediately.`;
 
     sendMail(user.email, subject, text)
       .then(() => console.log("Login email sent successfully"))
       .catch((err) => console.error("Error sending email:", err.message));
-  } catch (error) {
-    console.error("Login error:", error);
-    res
-      .status(500)
-      .json({ message: "Server error during login.", error: error.message });
+  })(req, res, next);
+});
+
+// Google OAuth login
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+// Google OAuth callback
+router.get(
+  "/google/callback",
+  passport.authenticate("google", { failureRedirect: "http://localhost:5173/login" }),
+  (req, res) => {
+    // Generate JWT token
+    const token = generateToken(req.user._id);
+    
+    // Redirect to frontend with token
+    res.redirect(`http://localhost:5173/auth/success?token=${token}`);
   }
+);
+
+// GitHub OAuth login
+router.get(
+  "/github",
+  passport.authenticate("github", { scope: ["user:email"] })
+);
+
+// GitHub OAuth callback
+router.get(
+  "/github/callback",
+  passport.authenticate("github", { failureRedirect: "http://localhost:5173/login" }),
+  (req, res) => {
+    // Generate JWT token
+    const token = generateToken(req.user._id);
+    
+    // Redirect to frontend with token
+    res.redirect(`http://localhost:5173/auth/success?token=${token}`);
+  }
+);
+
+// Get current user info
+router.get("/user", async (req, res) => {
+  try {
+    // Get token from header
+    const token = req.headers.authorization?.split(" ")[1];
+    
+    if (!token) {
+      return res.status(401).json({ message: "No token, authorization denied" });
+    }
+    
+    // Verify token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    
+    // Find user by id
+    const user = await User.findById(decoded.id).select("-password");
+    
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    
+    // Return user data including photoURL
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      photoURL: user.photoURL || null,
+      phone: user.phone || null,
+    });
+  } catch (error) {
+    console.error("Auth error:", error);
+    res.status(401).json({ message: "Token is not valid" });
+  }
+});
+
+// Logout
+router.get("/logout", (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      return res.status(500).json({ message: "Error during logout" });
+    }
+    res.json({ message: "Logged out successfully" });
+  });
 });
 
 module.exports = router;
